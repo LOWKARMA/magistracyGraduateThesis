@@ -5,12 +5,15 @@
 #include <class_ParameterTMI_old.h>
 #include <ClassTStepMotor.h>
 #include <class_Errors_old.h>
+#include <math.h>
+#include <IniFiles.hpp>
 //---------------------------------------------------------------------------
 struct TCommonEvaluationParameters  //Параметры общего анализа (первичной оценки)
 {
     double QantumStep;                                  //Шаг квантования (мера шума и расхождения)
     double Measure;                                     //Допуск на расхождение
-    unsigned int MinimumFailedPoints;
+    unsigned int MinimumFailedPoints;                   //Минимальное кол-во точек, в "сбойном интервале"
+    bool LoadFormIniFile(AnsiString IniFileName);       //Чтение из .ini и загрузка
     TCommonEvaluationParameters();
     TCommonEvaluationParameters(double QantumStep, double Measure, unsigned int MinimumFailedPoints);
 };
@@ -20,29 +23,32 @@ struct TStepMotorCharacteristics    //Параметры ШМ
     double DeltaVoltage;
     double MaximumLuft;
     double CurrentLuftPosition;
+    bool LoadFormIniFile(AnsiString IniFileName);
     TStepMotorCharacteristics();
     TStepMotorCharacteristics(double DeltaVoltage, double MaximumLuft, double CurrentLuftPosition);
 };
 //---------------------------------------------------------------------------
-template <class TypeOfX, class TypeOfY>
+template <class Type>
 struct TDigitalQuantumParameters    //Параметры АЦП
 {
     bool UsageFlag;
     char RoundingMethod;
-    TypeOfY QuantumLineBottomBorder;
-    TypeOfY QuantumLineTopBorder;
+    Type QuantumLineBottomBorder;
+    Type QuantumLineTopBorder;
     unsigned int QuantumIntervals;
+    bool LoadFormIniFile(AnsiString IniFileName);
     TDigitalQuantumParameters();
 };
 //---------------------------------------------------------------------------
-template <class TypeOfX, class TypeOfY>
+template <class Type>
 struct TPOSModellingParameters      //Параметры моделирования
 {
     double StartVoltage;
     double PointsFrequancy;
-    TypeOfY TimeShift;
+    Type TimeShift;
+    bool LoadFormIniFile(AnsiString IniFileName);
     TPOSModellingParameters();
-    //TDigitalQuantumParameters ADCParameters;
+
 };
 //---------------------------------------------------------------------------
 
@@ -66,17 +72,21 @@ class TCommonEvaluation
 
         double CalculateNoiseOnInterval(TParameterTMI_Old <TypeOfX, TypeOfY> *SourceParameter, TIntervalCharacteristics *FailedIntervals, double QantumStep);  //Посчитать шум в шагах квантования.
         bool LoadInnerParameters(TParameterTMI_Old <TypeOfX, TypeOfY> *InputPOSParameter, TIntervalCharacteristics* LongestIntervalWithoutImpulses, TCommonEvaluationParameters *EvaluationParmeters);
-        void Clear();
+        void Clear(); //rabotaet li?
 
     public:
         TCommonEvaluation();
         ~TCommonEvaluation();
 
         bool Load(TParameterTMI_Old <TypeOfX, TypeOfY> *ControlImpulsesParameter, TControlImpulse *ControlLevels,
-                    TPOSModellingParameters <TypeOfX, TypeOfY> *POSModelParameters, TDigitalQuantumParameters <TypeOfX, TypeOfY> *ADCParameters,
                     TParameterTMI_Old <TypeOfX, TypeOfY> *InputPOSParameter,
                     TIntervalCharacteristics *LongestIntervalWithoutImpulses,
+                    TStepMotorCharacteristics* StepMotorCharacteristics,
+                    TPOSModellingParameters <TypeOfY> *POSModelParameters,
+                    TDigitalQuantumParameters <TypeOfY> *ADCParameters,
                     TCommonEvaluationParameters *EvaluationParmeters);
+
+        //////bool Load()
         bool isNoiseLessThanMeasure();
         bool isNoiseLessThanMeasure(double AlternativeMeasure);
         void SmoothInnerPOSParameter(unsigned int SmoothIterrationsNumber);
@@ -90,6 +100,70 @@ TCommonEvaluationParameters::TCommonEvaluationParameters()
     QantumStep = 0;
     Measure = 0;
     MinimumFailedPoints = 0;
+}
+//---------------------------------------------------------------------------
+bool TCommonEvaluationParameters::LoadFormIniFile(AnsiString IniFileName)
+{
+    if(IniFileName.IsEmpty())
+        return false;
+
+    TIniFile *IniFile = new TIniFile(IniFileName);
+    TStringList *List = new TStringList;
+    IniFile->ReadSection("CommonEvaluationParameters", List);
+    IniFile->ReadSectionValues("CommonEvaluationParameters", List);
+
+    if(3 != List->Count)
+    {
+        delete List;
+        delete IniFile;
+        return false;
+    }
+
+    for(unsigned int i = 0; i < List->Count; ++i)
+    {
+        if(List->Names[i] == "QantumStep")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->QantumStep))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Measure")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Measure))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "MinimumFailedPoints")
+        {
+            int tmp;
+            if(!TryStrToInt(List->Values[List->Names[i]], tmp))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            this->MinimumFailedPoints = abs(tmp);
+            continue;
+        }
+        else
+        {
+            delete List;
+            delete IniFile;
+            return false;
+        }
+    }
+    
+    delete List;
+    delete IniFile;
+    return true;
 }
 //---------------------------------------------------------------------------
 TCommonEvaluationParameters::TCommonEvaluationParameters(double QantumStep, double Measure, unsigned int MinimumFailedPoints)
@@ -106,6 +180,69 @@ TStepMotorCharacteristics::TStepMotorCharacteristics()
     CurrentLuftPosition = 0;
 }
 //---------------------------------------------------------------------------
+bool TStepMotorCharacteristics::LoadFormIniFile(AnsiString IniFileName)
+{
+    if(IniFileName.IsEmpty())
+        return false;
+
+    TIniFile *IniFile = new TIniFile(IniFileName);
+    TStringList *List = new TStringList;
+    IniFile->ReadSection("StepMotorCharacteristics", List);
+    IniFile->ReadSectionValues("StepMotorCharacteristics", List);
+
+    if(3 != List->Count)
+    {
+        delete List;
+        delete IniFile;
+        return false;
+    }
+
+    for(unsigned int i = 0; i < List->Count; ++i)
+    {
+        if(List->Names[i] == "DeltaVoltage")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->DeltaVoltage))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "MaximumLuft")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->MaximumLuft))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "CurrentLuftPosition")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->CurrentLuftPosition))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else
+        {
+            delete List;
+            delete IniFile;
+            return false;
+        }
+
+    }
+
+    delete List;
+    delete IniFile;
+    return true;
+}
+//---------------------------------------------------------------------------
 TStepMotorCharacteristics::TStepMotorCharacteristics(double DeltaVoltage, double MaximumLuft, double CurrentLuftPosition)
 {
     this->DeltaVoltage = DeltaVoltage;
@@ -113,8 +250,8 @@ TStepMotorCharacteristics::TStepMotorCharacteristics(double DeltaVoltage, double
     this->CurrentLuftPosition = CurrentLuftPosition;
 }
 //---------------------------------------------------------------------------
-template <class TypeOfX, class TypeOfY>
-TDigitalQuantumParameters <TypeOfX, TypeOfY>::TDigitalQuantumParameters()
+template <class Type>
+TDigitalQuantumParameters <Type>::TDigitalQuantumParameters()
 {
     UsageFlag = false;
     RoundingMethod = 'n';
@@ -123,12 +260,138 @@ TDigitalQuantumParameters <TypeOfX, TypeOfY>::TDigitalQuantumParameters()
     QuantumIntervals = 0;
 }
 //---------------------------------------------------------------------------
-template <class TypeOfX, class TypeOfY>
-TPOSModellingParameters <TypeOfX, TypeOfY>::TPOSModellingParameters()
+template <class Type>
+bool TDigitalQuantumParameters <Type>::LoadFormIniFile(AnsiString IniFileName)
+{
+    if(IniFileName.IsEmpty())
+        return false;
+
+    TIniFile *IniFile = new TIniFile(IniFileName);
+    TStringList *List = new TStringList;
+    IniFile->ReadSection("DigitalQuantumParameters", List);
+    IniFile->ReadSectionValues("DigitalQuantumParameters", List);
+
+    if(5 != List->Count)
+    {
+        delete List;
+        delete IniFile;
+        return false;
+    }
+
+    for(unsigned int i = 0; i < List->Count; ++i)
+    {
+        if(List->Names[i] == "UsageFlag")
+        {
+            if(!TryStrToBool(List->Values[List->Names[i]], this->UsageFlag))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "RoundingMethod")
+        {
+            this->RoundingMethod = List->Values[List->Names[i]][1];
+            continue;
+        }
+        else if(List->Names[i] == "QuantumLineBottomBorder")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->QuantumLineBottomBorder))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "QuantumLineTopBorder")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->QuantumLineTopBorder))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+
+        else if(List->Names[i] == "QuantumIntervals")
+        {
+            int tmp;
+            if(!TryStrToInt(List->Values[List->Names[i]], tmp))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            this->QuantumIntervals = abs(tmp);
+            continue;
+        }
+        else
+        {
+            delete List;
+            delete IniFile;
+            return false;
+        }
+    }
+
+    delete List;
+    delete IniFile;
+    return true;
+}
+//---------------------------------------------------------------------------
+template <class Type>
+TPOSModellingParameters <Type>::TPOSModellingParameters()
 {
     StartVoltage = 0;
     PointsFrequancy = 0;
     TimeShift = 0;
+}
+//---------------------------------------------------------------------------
+template <class Type>
+bool TPOSModellingParameters <Type>::LoadFormIniFile(AnsiString IniFileName)
+{
+    if(IniFileName.IsEmpty())
+        return false;
+
+    TIniFile *IniFile = new TIniFile(IniFileName);
+    TStringList *List = new TStringList;
+    IniFile->ReadSection("ModellingParmeters", List);
+    IniFile->ReadSectionValues("ModellingParmeters", List);
+
+    if(3 != List->Count)
+    {
+        delete List;
+        delete IniFile;
+        return false;
+    }
+
+    double tmp;
+    for(unsigned int i = 0; i < List->Count; ++i)
+    {
+        if( !TryStrToFloat( List->Values[List->Names[i]], tmp ))
+        {
+            delete List;
+            delete IniFile;
+            return false;
+        }
+        else
+        {
+            if(List->Names[i] == "StartVoltage")
+                this->StartVoltage = tmp;
+
+            else if(List->Names[i] == "PointsFrequancy")
+                this->PointsFrequancy = tmp;
+
+            else if(List->Names[i] == "TimeShift")
+                this->TimeShift = tmp;
+        }
+    }
+
+    delete List;
+    delete IniFile;
+    return true;
 }
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
@@ -150,6 +413,7 @@ TCommonEvaluation <TypeOfX, TypeOfY>::TCommonEvaluation()
     Errors.SetErrorMessage(4, "Параметры сетки АЦП не заданы.");
     Errors.SetErrorMessage(5, "Натурная модель ПОС не задана.");
     Errors.SetErrorMessage(6, "Параметры общего анализа не заданы.");
+    Errors.SetErrorMessage(7, "Параметры характеристики ШМ не заданы.");
     Errors.SetWarningMessage(1, "Параметр не загружен. Функция Smooth не выполнена.");
 
     /*
@@ -190,9 +454,11 @@ void TCommonEvaluation <TypeOfX, TypeOfY>::Clear()
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
 bool TCommonEvaluation <TypeOfX, TypeOfY>::Load(TParameterTMI_Old <TypeOfX, TypeOfY> *ControlImpulsesParameter, TControlImpulse *ControlLevels,
-                                                TPOSModellingParameters <TypeOfX, TypeOfY> *POSModelParameters, TDigitalQuantumParameters <TypeOfX, TypeOfY> *ADCParameters,
                                                 TParameterTMI_Old <TypeOfX, TypeOfY> *InputPOSParameter,
                                                 TIntervalCharacteristics *LongestIntervalWithoutImpulses,
+                                                TStepMotorCharacteristics* StepMotorCharacteristics,
+                                                TPOSModellingParameters <TypeOfY> *POSModelParameters,
+                                                TDigitalQuantumParameters <TypeOfY> *ADCParameters,
                                                 TCommonEvaluationParameters *EvaluationParmeters)
 {
     if(!ControlImpulsesParameter)
@@ -218,6 +484,11 @@ bool TCommonEvaluation <TypeOfX, TypeOfY>::Load(TParameterTMI_Old <TypeOfX, Type
     if(!EvaluationParmeters)
     {
         Errors.SetError(6);
+        return false;
+    }
+    if(!StepMotorCharacteristics)
+    {
+        Errors.SetError(7);
         return false;
     }
 

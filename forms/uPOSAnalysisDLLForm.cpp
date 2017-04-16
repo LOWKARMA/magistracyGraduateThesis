@@ -12,6 +12,9 @@
 #pragma resource "*.dfm"
 TuPOSAnalysisForm *uPOSAnalysisForm;
 
+
+
+int tmp[4]= {-1,-1,-1,-1};
 //---------------------------------------------------------------------------
 __fastcall TuPOSAnalysisForm::TuPOSAnalysisForm(TComponent* Owner)
     : TForm(Owner)
@@ -52,7 +55,21 @@ void __fastcall TuPOSAnalysisForm::LoadInfoOnForm()
     FileUTMI.GetParsName((TStringList*)FileParametersCheckListBox->Items);
     FileParametersCheckListBox->MultiSelect = false;
     LoadParametersButton->Enabled = true;
+    for(int i = 0; i < 4; ++i)
+        SelectedItemsFlags[i] = -1;
 
+}
+//---------------------------------------------------------------------------
+void TuPOSAnalysisForm::SetSelectedItemFlag(TFileListBox *TabbedNotebook, int TabIndex)
+{
+    for(int i = 0; i < TabbedNotebook->Items->Count; ++i)
+    {
+        if(TabbedNotebook->Selected[i])
+        {
+            SelectedItemsFlags[TabIndex] = TabbedNotebook->ItemIndex;
+            break;
+        }
+    }
 }
 //---------------------------------------------------------------------------
 void __fastcall TuPOSAnalysisForm::LoadParametersButtonClick(TObject *Sender)
@@ -88,11 +105,36 @@ void __fastcall TuPOSAnalysisForm::LoadParametersButtonClick(TObject *Sender)
     ParameterPOSArray = CheckhedParameters[1].GetMasPointTMI(PointsCounter);
     TParameterTMI_Old <double, double> ParameterPOS(ParameterPOSArray, PointsCounter);
 
-    //TCommonEvaluation <double, double> POS;
+    TPOSModellingParameters <double> POSModellingParameters;
+    POSModellingParameters.LoadFormIniFile(ModellingParametersFile);
 
+    TDigitalQuantumParameters <double> ACDParameters;
+    ACDParameters.LoadFormIniFile(ModellingParametersFile);
+
+    TCommonEvaluationParameters CommonParameters;
+    CommonParameters.LoadFormIniFile(AnalysisParametersFile);
+
+    TStepMotorCharacteristics StepMotorCharacteristics;
+    StepMotorCharacteristics.LoadFormIniFile(StepmotorCharactristicsFile);
+    //TCommonEvaluation <double, double> POS;
+    /*
     TIniFile* IniFile = new TIniFile(ModellingParametersFile);
-    //TStringList List;
-    //IniFile->
+    TStringList *List = new TStringList;
+    IniFile->ReadSection("ModellingParmeters", List);
+    IniFile->ReadSectionValues("ModellingParmeters", List);
+    int tmp;
+    for(unsigned int i = 0; i < List->Count; ++i)
+    {
+        //if(List->Names[i] == "test0")
+        //StrToInt(List->Values[i]);
+        List->Names[i];
+        ShowMessage(List->Values[ List->Names[i]]);
+        List->Strings[i];
+        //List->Objects[i];
+        //List->Text[i];
+    }
+    //List->Names
+    */
 
     /*
     for(unsigned int i = 0; i < CheckhedParameters[0].CountPoint; i++)
@@ -147,20 +189,29 @@ void __fastcall TuPOSAnalysisForm::ParametersTabbedNotebookChange(
     {
         case 0:
              FileListBoxParametersList->Directory = ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\ModellingParameters";
+             if(SelectedItemsFlags[NewTab] != -1)
+                FileListBoxParametersList->Selected[SelectedItemsFlags[NewTab]] = true;
              break;
         case 1:
             FileListBoxParametersList->Directory = ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\AnalysisParameters";
+            if(SelectedItemsFlags[NewTab] != -1)
+                FileListBoxParametersList->Selected[SelectedItemsFlags[NewTab]] = true;
             break;
         case 2:
             FileListBoxParametersList->Directory = ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\SepmotorsCharacteristics";
+            if(SelectedItemsFlags[NewTab] != -1)
+                FileListBoxParametersList->Selected[SelectedItemsFlags[NewTab]] = true;
             break;
         case 3:
             FileListBoxParametersList->Directory = ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\TSUParameters";
+            if(SelectedItemsFlags[NewTab] != -1)
+                FileListBoxParametersList->Selected[SelectedItemsFlags[NewTab]] = true;
             break;
         default:
             FileListBoxParametersList->Directory = ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\";
             break;
     }
+    //FileListBoxParametersList->
 }
 //---------------------------------------------------------------------------
 void __fastcall TuPOSAnalysisForm::FileListBoxParametersListClick(
@@ -170,15 +221,24 @@ void __fastcall TuPOSAnalysisForm::FileListBoxParametersListClick(
     {
         case 0:
             ModellingParametersFile = FileListBoxParametersList->FileName;
+            /*
+            for(int i = 0; i < FileListBoxParametersList->Items->Count; ++i)
+                if(FileListBoxParametersList->Selected[i])
+                    tmp[0] = FileListBoxParametersList->ItemIndex;
+            */
+            SetSelectedItemFlag(FileListBoxParametersList, ParametersTabbedNotebook->PageIndex);
             break;
         case 1:
             AnalysisParametersFile = FileListBoxParametersList->FileName;
+            SetSelectedItemFlag(FileListBoxParametersList, ParametersTabbedNotebook->PageIndex);
             break;
         case 2:
             StepmotorCharactristicsFile = FileListBoxParametersList->FileName;
+            SetSelectedItemFlag(FileListBoxParametersList, ParametersTabbedNotebook->PageIndex);
             break;
         case 3:
             TSUparametersFile = FileListBoxParametersList->FileName;
+            SetSelectedItemFlag(FileListBoxParametersList, ParametersTabbedNotebook->PageIndex);
             break;
         default:
             ModellingParametersFile = "";
@@ -187,6 +247,7 @@ void __fastcall TuPOSAnalysisForm::FileListBoxParametersListClick(
             TSUparametersFile = "";
             break;
     }
+
 }
 //---------------------------------------------------------------------------
 

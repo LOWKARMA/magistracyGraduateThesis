@@ -14,6 +14,8 @@
 #include <ComCtrls.hpp>
 #include <TabNotBk.hpp>
 #include <FileCtrl.hpp>
+
+#include <ClassTCommonEvaluation.h>
 //---------------------------------------------------------------------------
 class TuPOSAnalysisForm : public TForm
 {
@@ -36,10 +38,13 @@ __published:	// IDE-managed Components
 private:	// User declarations
     unsigned short CheckedItemsCount;
     AnsiString ModellingParametersFile, AnalysisParametersFile, StepmotorCharactristicsFile, TSUparametersFile;
+    //bool LoadModellingParameters(AnsiString ModellingParametersFile, TPOSModellingParameters <TypeOfX, TypeOfY>* ModellingParameters);
+    int SelectedItemsFlags[4];
 public:		// User declarations
     __fastcall TuPOSAnalysisForm(TComponent* Owner);
     AnsiString UTMIFileName;
     void __fastcall LoadInfoOnForm();
+    void SetSelectedItemFlag(TFileListBox *TabbedNotebook, int TabIndex);
     //bool LoadModellingParameters(AnsiStirng ModellingParametersFile, );
 
 };

@@ -5,6 +5,7 @@
 #include <class_ParameterTMI_old.h>
 #include <class_FileTP.h>
 #include <class_Errors_old.h>
+#include <IniFiles.hpp>
 //---------------------------------------------------------------------------
 struct TIntervalCharacteristics
 {
@@ -26,6 +27,7 @@ struct TControlImpulse
     float Level_41Max;
     float Level_0Min;
     float Level_0Max;
+    bool LoadFormIniFile(AnsiString IniFileName);
 };
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
@@ -466,6 +468,138 @@ void TStepMotor<TypeOfX, TypeOfY>::Clear()
     LongestIntervalWithoutImpulses.IntervalStartTime = 0;
     LongestIntervalWithoutImpulses.IntervalEndTime = 0;
     LongestIntervalWithoutImpulses.Noise = 0;
+}
+//---------------------------------------------------------------------------
+bool TControlImpulse::LoadFormIniFile(AnsiString IniFileName)
+{
+    if(IniFileName.IsEmpty())
+        return false;
+
+    TIniFile *IniFile = new TIniFile(IniFileName);
+    TStringList *List = new TStringList;
+    IniFile->ReadSection("ControlImpulsesLevels", List);
+    IniFile->ReadSectionValues("ControlImpulsesLevels", List);
+
+    if(10 != List->Count)
+    {
+        delete List;
+        delete IniFile;
+        return false;
+    }
+
+    for(unsigned int i = 0; i < List->Count; ++i)
+    {
+        if(List->Names[i] == "Level_12Min")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_12Min))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_12Max")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_12Max))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_23Min")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_23Min))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_23Max")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_23Max))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_34Min")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_34Min))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_34Max")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_34Max))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_41Min")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_41Min))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_41Max")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_41Max))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_0Min")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_0Min))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else if(List->Names[i] == "Level_0Max")
+        {
+            if(!TryStrToFloat(List->Values[List->Names[i]], this->Level_0Max))
+            {
+                delete List;
+                delete IniFile;
+                return false;
+            }
+            continue;
+        }
+        else
+        {
+            delete List;
+            delete IniFile;
+            return false;
+        }
+    }
+
+    delete List;
+    delete IniFile;
+    return true;
 }
 //---------------------------------------------------------------------------
 #endif

@@ -1,6 +1,6 @@
 object uPOSAnalysisForm: TuPOSAnalysisForm
-  Left = 963
-  Top = 202
+  Left = 985
+  Top = 76
   Width = 935
   Height = 483
   Caption = 'uPOSAnalysisForm'

@@ -12,7 +12,8 @@
       D:\!Viktor\Work\Common\class_ParameterTMI_old.obj 
       D:\!Alexey\functions\smoothParameter\smooth.obj 
       D:\!Alexey\classes\TStepMotor\ClassTStepMotor.obj 
-      D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.obj"/>
+      D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.obj 
+      D:\!Viktor\Work\Common\class_Errors_old.obj"/>
     <RESFILES value="uPOSAnalysisDLL.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -28,7 +29,7 @@
       inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
       bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
       indy.bpi bcb2kaxserver.bpi"/>
-    <PATHCPP value=".;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\DigitalQuantum"/>
+    <PATHCPP value=".;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;"/>
     <PATHASM value=".;"/>
@@ -78,6 +79,7 @@
       <FILE FILENAME="D:\!Alexey\functions\smoothParameter\smooth.cpp" FORMNAME="" UNITNAME="smooth" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Alexey\classes\TStepMotor\ClassTStepMotor.cpp" FORMNAME="" UNITNAME="ClassTStepMotor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.cpp" FORMNAME="" UNITNAME="DigitalQuantum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Viktor\Work\Common\class_Errors_old.cpp" FORMNAME="" UNITNAME="class_Errors_old" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
