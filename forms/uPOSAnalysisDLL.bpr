@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL.dll"/>
+    <OBJFILES value="uPOSAnalysisDLLProject.obj test.obj uPOSAnalysisDLLForm.obj 
+      D:\!Viktor\Work\Common\class_FileUTMI.obj 
+      D:\!Viktor\Work\Common\class_Errors.obj 
+      D:\!Viktor\Work\Common\class_ParameterTMI.obj 
+      D:\!Alexey\classes\TComonEvaluation\ClassTCommonEvaluation.obj 
+      D:\!Viktor\Work\Common\class_ParameterTMI_old.obj 
+      D:\!Alexey\functions\smoothParameter\smooth.obj 
+      D:\!Alexey\classes\TStepMotor\ClassTStepMotor.obj 
+      D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.obj"/>
+    <RESFILES value="uPOSAnalysisDLL.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) uPOSAnalysisDLLForm.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value="rtl.lib vcl.lib vclx.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
+      vcldbx.bpi ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi teeui.bpi 
+      teedb.bpi tee.bpi dss.bpi teeqr.bpi visualclx.bpi visualdbclx.bpi 
+      dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi inet.bpi 
+      inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
+      bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi"/>
+    <PATHCPP value=".;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\DigitalQuantum"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="NO_STRICT;_RTLDLL;USEPACKAGES"/>
+    <MAINSOURCE value="uPOSAnalysisDLL.bpf"/>
+    <INCLUDEPATH value="D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-ID:\!Alexey\functions\DigitalQuantum -ID:\!Viktor\Work\Common 
+      -ID:\!Alexey\classes\TStepMotor -ID:\!Alexey\functions\smoothParameter 
+      -ID:\!Alexey\classes\TComonEvaluation 
+      -I&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot; 
+      -ID:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL -I$(BCB)\include 
+      -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-WD -Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- 
+      -tWD -tWM -c"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpd -x -Gn -Gi -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0d32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="uPOSAnalysisDLL.res" FORMNAME="" UNITNAME="uPOSAnalysisDLL.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSAnalysisDLL.bpf" FORMNAME="" UNITNAME="uPOSAnalysisDLL" CONTAINERID="BPF" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSAnalysisDLLProject.cpp" FORMNAME="" UNITNAME="uPOSAnalysisDLLProject" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="test.cpp" FORMNAME="" UNITNAME="test" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSAnalysisDLLForm.cpp" FORMNAME="uPOSAnalysisForm" UNITNAME="uPOSAnalysisDLLForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Viktor\Work\Common\class_FileUTMI.cpp" FORMNAME="" UNITNAME="class_FileUTMI" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Viktor\Work\Common\class_Errors.cpp" FORMNAME="" UNITNAME="class_Errors.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Viktor\Work\Common\class_ParameterTMI.cpp" FORMNAME="" UNITNAME="class_ParameterTMI.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Alexey\classes\TComonEvaluation\ClassTCommonEvaluation.cpp" FORMNAME="" UNITNAME="ClassTCommonEvaluation" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Viktor\Work\Common\class_ParameterTMI_old.cpp" FORMNAME="" UNITNAME="class_ParameterTMI_old" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Alexey\functions\smoothParameter\smooth.cpp" FORMNAME="" UNITNAME="smooth" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Alexey\classes\TStepMotor\ClassTStepMotor.cpp" FORMNAME="" UNITNAME="ClassTStepMotor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.cpp" FORMNAME="" UNITNAME="DigitalQuantum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[Excluded Packages]
+c:\program files (x86)\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+
+[HistoryLists\hlIncludePath]
+Count=3
+Item0=D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item1=D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item2=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Item1=D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Item2=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[HistoryLists\hlFinalOutputDir]
+Count=2
+Item0=D:\Alexey\sources&amp;projects\uPOSAnalysis\
+Item1=D:\Alexey\sources&amp;projects\uPOSAnalysis
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisProject.exe
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+  </IDEOPTIONS>
+</PROJECT>
