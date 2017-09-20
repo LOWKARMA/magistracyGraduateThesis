@@ -15,12 +15,16 @@
       D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.obj 
       D:\!Viktor\Work\Common\class_Errors_old.obj 
       uPOSAnalysisDLLParametersEditorForm.obj 
-      D:\!Alexey\functions\SomeFunctions.obj"/>
+      D:\!Alexey\functions\SomeFunctions.obj 
+      uPOSModellingParametersEditorForm.obj 
+      uPOSStepMotorParametersEditorForm.obj uPOSTSUParametersEditorForm.obj"/>
     <RESFILES value="uPOSAnalysisDLL.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) uPOSAnalysisDLLForm.dfm uPOSAnalysisDLLParametersEditorForm.dfm"/>
+    <RESDEPEN value="$(RESFILES) uPOSAnalysisDLLForm.dfm 
+      uPOSAnalysisDLLParametersEditorForm.dfm uPOSModellingParametersEditorForm.dfm 
+      uPOSStepMotorParametersEditorForm.dfm uPOSTSUParametersEditorForm.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value=""/>
     <SPARELIBS value="rtl.lib vcl.lib vclx.lib"/>
@@ -83,8 +87,11 @@
       <FILE FILENAME="D:\!Alexey\classes\TStepMotor\ClassTStepMotor.cpp" FORMNAME="" UNITNAME="ClassTStepMotor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.cpp" FORMNAME="" UNITNAME="DigitalQuantum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Viktor\Work\Common\class_Errors_old.cpp" FORMNAME="" UNITNAME="class_Errors_old" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
-      <FILE FILENAME="uPOSAnalysisDLLParametersEditorForm.cpp" FORMNAME="uPOSAnalysisParametersEditorForm" UNITNAME="uPOSAnalysisDLLParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSAnalysisDLLParametersEditorForm.cpp" FORMNAME="AnalysisParametersEditorForm" UNITNAME="uPOSAnalysisDLLParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Alexey\functions\SomeFunctions.cpp" FORMNAME="" UNITNAME="SomeFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSModellingParametersEditorForm.cpp" FORMNAME="ModellingParametersEditorForm" UNITNAME="uPOSModellingParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSStepMotorParametersEditorForm.cpp" FORMNAME="StepMotorCharacteristicsEditorForm" UNITNAME="uPOSStepMotorParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSTSUParametersEditorForm.cpp" FORMNAME="TSUparametersEditorForm" UNITNAME="uPOSTSUParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

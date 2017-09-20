@@ -1,5 +1,8 @@
 USEFORM("uPOSAnalysisDLLForm.cpp", uPOSAnalysisForm);
-USEFORM("uPOSAnalysisDLLParametersEditorForm.cpp", uPOSAnalysisParametersEditorForm);
+USEFORM("uPOSAnalysisDLLParametersEditorForm.cpp", AnalysisParametersEditorForm);
+USEFORM("uPOSModellingParametersEditorForm.cpp", ModellingParametersEditorForm);
+USEFORM("uPOSStepMotorParametersEditorForm.cpp", StepMotorCharacteristicsEditorForm);
+USEFORM("uPOSTSUParametersEditorForm.cpp", TSUparametersEditorForm);
 //---------------------------------------------------------------------------
 This file is used by the project manager only and should be treated like the project file
 

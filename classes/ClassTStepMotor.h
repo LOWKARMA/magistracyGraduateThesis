@@ -30,6 +30,8 @@ struct TControlImpulse
     float Level_0Min;
     float Level_0Max;
     bool LoadFormIniFile(AnsiString IniFileName);
+    TControlImpulse();
+    TControlImpulse(AnsiString InputFileName);
 };
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
@@ -604,5 +606,53 @@ bool TControlImpulse::LoadFormIniFile(AnsiString IniFileName)
     return true;
 }
 //---------------------------------------------------------------------------
+TControlImpulse::TControlImpulse(AnsiString InputFileName)
+{
+    if(InputFileName.IsEmpty())
+    {
+        Level_12Min = 0;
+        Level_12Max = 0;
+        Level_23Min = 0;
+        Level_23Max = 0;
+        Level_34Min = 0;
+        Level_34Max = 0;
+        Level_41Min = 0;
+        Level_41Max = 0;
+        Level_0Min = 0;
+        Level_0Max = 0;
+        return;
+    }
+
+    TIniFile *IniFile = new TIniFile(InputFileName);
+
+    Level_12Min = IniFile->ReadFloat("ControlImpulsesLevels", "Level_12Min", 0);
+    Level_12Max = IniFile->ReadFloat("ControlImpulsesLevels", "Level_12Max", 0);
+    Level_23Min = IniFile->ReadFloat("ControlImpulsesLevels", "Level_23Min", 0);
+    Level_23Max = IniFile->ReadFloat("ControlImpulsesLevels", "Level_23Max", 0);
+    Level_34Min = IniFile->ReadFloat("ControlImpulsesLevels", "Level_34Min", 0);
+    Level_34Max = IniFile->ReadFloat("ControlImpulsesLevels", "Level_34Max", 0);
+    Level_41Min = IniFile->ReadFloat("ControlImpulsesLevels", "Level_41Min", 0);
+    Level_41Max = IniFile->ReadFloat("ControlImpulsesLevels", "Level_41Max", 0);
+    Level_0Min = IniFile->ReadFloat("ControlImpulsesLevels", "Level_0Min", 0);
+    Level_0Max = IniFile->ReadFloat("ControlImpulsesLevels", "Level_0Max", 0);
+
+    delete IniFile;
+    return;
+}
+//---------------------------------------------------------------------------
+TControlImpulse::TControlImpulse()
+{
+    Level_12Min = 0;
+    Level_12Max = 0;
+    Level_23Min = 0;
+    Level_23Max = 0;
+    Level_34Min = 0;
+    Level_34Max = 0;
+    Level_41Min = 0;
+    Level_41Max = 0;
+    Level_0Min = 0;
+    Level_0Max = 0;
+    return;
+}
 #endif
 

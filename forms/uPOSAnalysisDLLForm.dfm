@@ -1,8 +1,8 @@
 object uPOSAnalysisForm: TuPOSAnalysisForm
-  Left = 264
-  Top = 141
-  Width = 1283
-  Height = 775
+  Left = 290
+  Top = 226
+  Width = 851
+  Height = 370
   Caption = 'uPOSAnalysisForm'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,7 +12,7 @@ object uPOSAnalysisForm: TuPOSAnalysisForm
   Font.Style = []
   FormStyle = fsMDIChild
   OldCreateOrder = False
-  Position = poDefault
+  Position = poDefaultPosOnly
   Visible = True
   OnClose = FormClose
   OnCreate = FormCreate
@@ -124,8 +124,8 @@ object uPOSAnalysisForm: TuPOSAnalysisForm
   end
   object MainFormStatusBar: TStatusBar
     Left = 0
-    Top = 729
-    Width = 1275
+    Top = 324
+    Width = 843
     Height = 19
     Panels = <
       item

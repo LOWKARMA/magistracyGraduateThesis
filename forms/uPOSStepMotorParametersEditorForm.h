@@ -1,42 +1,35 @@
 //---------------------------------------------------------------------------
 
-#ifndef uPOSAnalysisDLLParametersEditorFormH
-#define uPOSAnalysisDLLParametersEditorFormH
+#ifndef uPOSStepMotorParametersEditorFormH
+#define uPOSStepMotorParametersEditorFormH
 //---------------------------------------------------------------------------
 #include <Classes.hpp>
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
-#include <Grids.hpp>
 #include <ExtCtrls.hpp>
-#include <SomeFunctions.h>
+#include <Grids.hpp>
 #include <ComCtrls.hpp>
 //---------------------------------------------------------------------------
-class TAnalysisParametersEditorForm : public TForm
+class TStepMotorCharacteristicsEditorForm : public TForm
 {
 __published:	// IDE-managed Components
     TStringGrid *StringGrid;
-    TButton *ButtonSave;
-    TButton *ButtonCancel;
-    TLabeledEdit *LabeledEditFileName;
-    TLabel *Label_CommonEvaluationParameters;
+    TLabeledEdit *LabeledEdit_FileName;
+    TButton *Button_Save;
+    TButton *Button_Cancel;
+    TLabel *Label_StepMotorCharacteristicsParameters;
     TStatusBar *StatusBar;
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
-    void __fastcall ButtonSaveClick(TObject *Sender);
-    void __fastcall ButtonCancelClick(TObject *Sender);
+    void __fastcall Button_SaveClick(TObject *Sender);
 private:	// User declarations
     AnsiString FileName;
-    //int ParametersPageIndex;
-    //void LoadInfoOnForm();
     void SetStatusbarText(AnsiString Message);
-    //bool TryToFloat(AnsiString &Number, double &Variable);
-    //bool TryToInt(AnsiString &Number,  int &Variable);
 public:		// User declarations
-    __fastcall TAnalysisParametersEditorForm(TComponent* Owner);
-    void LoadForm(AnsiString);//, int);
-
+    __fastcall TStepMotorCharacteristicsEditorForm(TComponent* Owner);
+    void LoadForm(AnsiString);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TAnalysisParametersEditorForm *AnalysisParametersEditorForm;
+extern PACKAGE TStepMotorCharacteristicsEditorForm *StepMotorCharacteristicsEditorForm;
 //---------------------------------------------------------------------------
 #endif

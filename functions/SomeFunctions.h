@@ -14,9 +14,12 @@ type* WriteToArr(type *array, int FileHandle, int ParAmount, int FileLength);   
 template <class type>
 type RoundTo(type Value, int SymbolsAfterComma);//очень плохо
 
-AnsiString GetFileNameWithoutExt(AnsiString FileName);
+AnsiString GetFileNameWithoutExt(AnsiString FileName); //
 
-AnsiString ChangeDecimalSeparator(AnsiString Number);
+AnsiString ChangeDecimalSeparator(AnsiString Number); // changes "," to "." or vise-versa
+
+bool TryToInt(AnsiString &Number,  int &Variable);
+bool TryToFloat(AnsiString &Number,  float &Variable);
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
 bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> &Parameter,AnsiString FileName)
@@ -88,6 +91,32 @@ AnsiString ChangeDecimalSeparator(AnsiString Text)
         }
     }
     return Text;
+}
+//---------------------------------------------------------------------------
+bool TryToFloat(AnsiString &Number, double &Variable)
+{
+    if(!TryStrToFloat(Number, Variable))
+    {
+        Number = ChangeDecimalSeparator(Number);
+        if(!TryStrToFloat(Number, Variable))
+            return false;
+        else
+            return true;
+    }
+    return true;
+}
+//---------------------------------------------------------------------------
+bool TryToInt(AnsiString &Number,  int &Variable)
+{
+    if(!TryStrToInt(Number, Variable))
+    {
+        Number = ChangeDecimalSeparator(Number);
+        if(!TryStrToInt(Number, Variable))
+            return false;
+        else
+            return true;
+    }
+    return true;
 }
 //---------------------------------------------------------------------------
 #endif

@@ -1,10 +1,10 @@
-object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
-  Left = 1422
-  Top = 435
+object StepMotorCharacteristicsEditorForm: TStepMotorCharacteristicsEditorForm
+  Left = 1423
+  Top = 201
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'AnalysisParametersEditorForm'
-  ClientHeight = 204
+  Caption = 'StepMotorCharacteristicsEditorForm'
+  ClientHeight = 206
   ClientWidth = 316
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,12 +19,12 @@ object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
-  object Label_CommonEvaluationParameters: TLabel
+  object Label_StepMotorCharacteristicsParameters: TLabel
     Left = 8
     Top = 56
-    Width = 145
+    Width = 80
     Height = 13
-    Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1086#1073#1097#1077#1075#1086' '#1072#1085#1072#1083#1080#1079#1072
+    Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1064#1052
   end
   object StringGrid: TStringGrid
     Left = 8
@@ -45,25 +45,7 @@ object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
     ParentFont = False
     TabOrder = 0
   end
-  object ButtonSave: TButton
-    Left = 8
-    Top = 152
-    Width = 75
-    Height = 25
-    Caption = 'Save'
-    TabOrder = 1
-    OnClick = ButtonSaveClick
-  end
-  object ButtonCancel: TButton
-    Left = 88
-    Top = 152
-    Width = 75
-    Height = 25
-    Caption = 'Cancel'
-    TabOrder = 2
-    OnClick = ButtonCancelClick
-  end
-  object LabeledEditFileName: TLabeledEdit
+  object LabeledEdit_FileName: TLabeledEdit
     Left = 8
     Top = 24
     Width = 153
@@ -73,11 +55,28 @@ object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
     EditLabel.Caption = #1048#1084#1103' '#1092#1072#1081#1083#1072
     LabelPosition = lpAbove
     LabelSpacing = 3
+    TabOrder = 1
+  end
+  object Button_Save: TButton
+    Left = 8
+    Top = 152
+    Width = 75
+    Height = 25
+    Caption = 'Save'
+    TabOrder = 2
+    OnClick = Button_SaveClick
+  end
+  object Button_Cancel: TButton
+    Left = 88
+    Top = 152
+    Width = 75
+    Height = 25
+    Caption = 'Cancel'
     TabOrder = 3
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 185
+    Top = 187
     Width = 316
     Height = 19
     Panels = <

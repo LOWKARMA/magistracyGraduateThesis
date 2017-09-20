@@ -7,7 +7,11 @@
 #include "uPOSAnalysisDLLForm.h"
 #include <class_ParameterTMI_old.h>
 #include <system.hpp>
+//paramtetersEditors forms
 #include "uPOSAnalysisDLLParametersEditorForm.h"
+#include "uPOSModellingParametersEditorForm.h"
+#include "uPOSStepMotorParametersEditorForm.h"
+#include "uPOSTSUParametersEditorForm.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -269,7 +273,7 @@ void __fastcall TuPOSAnalysisForm::ButtonDeleteParameterFileClick(
 {
     if(FileListBoxParametersList->FileName.IsEmpty())
     {
-        SetStatusbarText("Ошибка!", "Сначала выберите файл для удаления.");
+        SetStatusbarText("Ошибка!", "Не выбран файл для удаления.");
         return;
     }
     else if(6 == Application->MessageBox("Вы действительно хотите удалить этот файл?\0", "Предупреждение.\0", MB_YESNO|MB_ICONERROR))
@@ -293,17 +297,21 @@ void __fastcall TuPOSAnalysisForm::ButtonEditParameterFileClick(
     switch(ParametersTabbedNotebook->PageIndex)
     {
         case 0:
-            SetStatusbarText("Ошибка!", "Форма параметров моделирования дорабатывается");
+            //SetStatusbarText("Ошибка!", "Форма параметров моделирования дорабатывается");
+            Application->CreateForm(__classid(TModellingParametersEditorForm), &ModellingParametersEditorForm);
+            ModellingParametersEditorForm->LoadForm(FileListBoxParametersList->FileName);
             break;
         case 1:
-            Application->CreateForm(__classid(TuPOSAnalysisParametersEditorForm), &uPOSAnalysisParametersEditorForm);
-            uPOSAnalysisParametersEditorForm->LoadForm(FileListBoxParametersList->FileName);
+            Application->CreateForm(__classid(TAnalysisParametersEditorForm), &AnalysisParametersEditorForm);
+            AnalysisParametersEditorForm->LoadForm(FileListBoxParametersList->FileName);
             break;
         case 2:
-            SetStatusbarText("Ошибка!", "Форма параметров характреристик ШМ дорабатывается");
+            Application->CreateForm(__classid(TStepMotorCharacteristicsEditorForm), &StepMotorCharacteristicsEditorForm);
+            StepMotorCharacteristicsEditorForm->LoadForm(FileListBoxParametersList->FileName);
             break;
         case 3:
-            SetStatusbarText("Ошибка!", "Форма параметров параметров ТСУ дорабатывается");
+            Application->CreateForm(__classid(TTSUparametersEditorForm), &TSUparametersEditorForm);
+            TSUparametersEditorForm->LoadForm(FileListBoxParametersList->FileName);
             break;
         default:
             break;
@@ -317,17 +325,20 @@ void __fastcall TuPOSAnalysisForm::ButtonAddParameterFileClick(
     switch(ParametersTabbedNotebook->PageIndex)
     {
         case 0:
-            SetStatusbarText("Ошибка!", "Форма параметров моделирования дорабатывается");
+            Application->CreateForm(__classid(TModellingParametersEditorForm), &ModellingParametersEditorForm);
+            ModellingParametersEditorForm->LoadForm(ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\ModellingParameters\\");
             break;
         case 1:
-            Application->CreateForm(__classid(TuPOSAnalysisParametersEditorForm), &uPOSAnalysisParametersEditorForm);
-            uPOSAnalysisParametersEditorForm->LoadForm(ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\AnalysisParameters\\"); //NewFile.ini");
+            Application->CreateForm(__classid(TAnalysisParametersEditorForm), &AnalysisParametersEditorForm);
+            AnalysisParametersEditorForm->LoadForm(ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\AnalysisParameters\\"); //NewFile.ini");
             break;
         case 2:
-            SetStatusbarText("Ошибка!", "Форма параметров характреристик ШМ дорабатывается");
+            Application->CreateForm(__classid(TStepMotorCharacteristicsEditorForm), &StepMotorCharacteristicsEditorForm);
+            StepMotorCharacteristicsEditorForm->LoadForm(ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\SepmotorsCharacteristics\\");
             break;
         case 3:
-            SetStatusbarText("Ошибка!", "Форма параметров параметров ТСУ дорабатывается");
+            Application->CreateForm(__classid(TTSUparametersEditorForm), &TSUparametersEditorForm);
+            TSUparametersEditorForm->LoadForm(ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\TSUParameters\\");
             break;
         default:
             break;

@@ -26,8 +26,10 @@ struct TStepMotorCharacteristics    //Параметры ШМ
     double MaximumLuft;
     double CurrentLuftPosition;
     bool LoadFormIniFile(AnsiString InputFileName);
+    void SaveToIniFile(AnsiString OutputFileName);
     TStepMotorCharacteristics();
     TStepMotorCharacteristics(double DeltaVoltage, double MaximumLuft, double CurrentLuftPosition);
+    TStepMotorCharacteristics(AnsiString InputFileName);
 };
 //---------------------------------------------------------------------------
 template <class Type>
@@ -39,8 +41,10 @@ struct TDigitalQuantumParameters    //Параметры АЦП
     Type QuantumLineTopBorder;
     int QuantumIntervals;
     bool LoadFormIniFile(AnsiString InputFileName);
+    void SaveToIniFile(AnsiString OutputFileName);
     TDigitalQuantumParameters();
     TDigitalQuantumParameters(bool UsageFlag, char RoundingMethod, Type QuantumLineBottomBorder, Type QuantumLineTopBorder, int QuantumIntervals);
+    TDigitalQuantumParameters(AnsiString InputFileName);
 };
 //---------------------------------------------------------------------------
 template <class Type>
@@ -50,8 +54,10 @@ struct TPOSModellingParameters      //Параметры моделирования
     double PointsFrequancy;
     Type TimeShift;
     bool LoadFormIniFile(AnsiString InputFileName);
+    void SaveToIniFile(AnsiString OutputFileName);
     TPOSModellingParameters();
     TPOSModellingParameters(double StartVoltage, double PointsFrequancy, Type TimeShift);
+    TPOSModellingParameters(AnsiString InputFileName);
 };
 //---------------------------------------------------------------------------
 
@@ -192,9 +198,9 @@ TCommonEvaluationParameters::TCommonEvaluationParameters(AnsiString InputFileNam
 {
     if(InputFileName.IsEmpty())
     {
-        this->QantumStep = 0;
-        this->Measure = 0;
-        this->MinimumFailedPoints = 0;
+        QantumStep = 0;
+        Measure = 0;
+        MinimumFailedPoints = 0;
         return;
     }
     TIniFile *IniFile = new TIniFile(InputFileName);
@@ -276,11 +282,41 @@ bool TStepMotorCharacteristics::LoadFormIniFile(AnsiString InputFileName)
     return true;
 }
 //---------------------------------------------------------------------------
+void TStepMotorCharacteristics::SaveToIniFile(AnsiString OutputFileName)
+{
+    TIniFile *IniFile = new TIniFile(OutputFileName);
+
+    IniFile->WriteFloat("StepMotorCharacteristics", "DeltaVoltage", DeltaVoltage);
+    IniFile->WriteFloat("StepMotorCharacteristics", "MaximumLuft", MaximumLuft);
+    IniFile->WriteInteger("StepMotorCharacteristics", "CurrentLuftPosition", CurrentLuftPosition);
+
+    delete IniFile;
+}
+//---------------------------------------------------------------------------
 TStepMotorCharacteristics::TStepMotorCharacteristics(double DeltaVoltage, double MaximumLuft, double CurrentLuftPosition)
 {
     this->DeltaVoltage = DeltaVoltage;
     this->MaximumLuft = MaximumLuft;
     this->CurrentLuftPosition = CurrentLuftPosition;
+}
+//---------------------------------------------------------------------------
+TStepMotorCharacteristics::TStepMotorCharacteristics(AnsiString InputFileName)
+{
+    if(InputFileName.IsEmpty())
+    {
+        DeltaVoltage = 0;
+        MaximumLuft = 0;
+        CurrentLuftPosition = 0;
+        return;
+    }
+    TIniFile *IniFile = new TIniFile(InputFileName);
+
+    DeltaVoltage = IniFile->ReadFloat("StepMotorCharacteristics", "DeltaVoltage", 0);
+    MaximumLuft = IniFile->ReadFloat("StepMotorCharacteristics", "MaximumLuft", 0);
+    CurrentLuftPosition = IniFile->ReadFloat("StepMotorCharacteristics", "CurrentLuftPosition", 0);
+
+    delete IniFile;
+    return;
 }
 //---------------------------------------------------------------------------
 template <class Type>
@@ -385,6 +421,48 @@ bool TDigitalQuantumParameters <Type>::LoadFormIniFile(AnsiString InputFileName)
 }
 //---------------------------------------------------------------------------
 template <class Type>
+void TDigitalQuantumParameters <Type>::SaveToIniFile(AnsiString OutputFileName)
+{
+    TIniFile *IniFile = new TIniFile(OutputFileName);
+
+    IniFile->WriteBool("DigitalQuantumParameters", "UsageFlag", UsageFlag);
+    IniFile->WriteString("DigitalQuantumParameters", "RoundingMethod", RoundingMethod);
+    IniFile->WriteFloat("DigitalQuantumParameters", "QuantumLineBottomBorder", QuantumLineBottomBorder);
+    IniFile->WriteFloat("DigitalQuantumParameters", "QuantumLineTopBorder", QuantumLineTopBorder);
+    IniFile->WriteInteger("DigitalQuantumParameters", "QuantumIntervals", QuantumIntervals);
+
+    delete IniFile;
+}
+//---------------------------------------------------------------------------
+template <class Type>
+TDigitalQuantumParameters <Type>::TDigitalQuantumParameters(AnsiString InputFileName)
+{
+    if(InputFileName.IsEmpty())
+    {
+        UsageFlag = false;
+        RoundingMethod = 'n';
+        QuantumLineBottomBorder = 0;
+        QuantumLineTopBorder = 0;
+        QuantumIntervals = 0;
+        return;
+    }
+
+    TIniFile *IniFile = new TIniFile(InputFileName);
+
+    AnsiString tmp;
+    UsageFlag = IniFile->ReadBool("DigitalQuantumParameters", "UsageFlag", false);
+    tmp = IniFile->ReadString("DigitalQuantumParameters", "RoundingMethod", "n");
+    RoundingMethod = tmp[1];
+    QuantumLineBottomBorder = IniFile->ReadFloat("DigitalQuantumParameters", "QuantumLineBottomBorder", 0);
+    QuantumLineTopBorder = IniFile->ReadFloat("DigitalQuantumParameters", "QuantumLineTopBorder", 0);
+    QuantumIntervals = IniFile->ReadInteger("DigitalQuantumParameters", "QuantumIntervals", 0);
+
+    delete IniFile;
+    return;
+
+}
+//---------------------------------------------------------------------------
+template <class Type>
 TPOSModellingParameters <Type>::TPOSModellingParameters()
 {
     StartVoltage = 0;
@@ -443,6 +521,38 @@ bool TPOSModellingParameters <Type>::LoadFormIniFile(AnsiString InputFileName)
     delete List;
     delete IniFile;
     return true;
+}
+//---------------------------------------------------------------------------
+template <class Type>
+void TPOSModellingParameters <Type>::SaveToIniFile(AnsiString OutputFileName)
+{
+    TIniFile *IniFile = new TIniFile(OutputFileName);
+
+    IniFile->WriteFloat("ModellingParmeters", "StartVoltage", StartVoltage);
+    IniFile->WriteFloat("ModellingParmeters", "PointsFrequancy", PointsFrequancy);
+    IniFile->WriteInteger("ModellingParmeters", "TimeShift", TimeShift);
+
+    delete IniFile;
+}
+//---------------------------------------------------------------------------
+template <class Type>
+TPOSModellingParameters <Type>::TPOSModellingParameters(AnsiString InputFileName)
+{
+    if(InputFileName.IsEmpty())
+    {
+        StartVoltage = 0;
+        PointsFrequancy = 0;
+        TimeShift = 0;
+        return;
+    }
+    TIniFile *IniFile = new TIniFile(InputFileName);
+
+    StartVoltage = IniFile->ReadFloat("ModellingParmeters", "StartVoltage", 0);
+    PointsFrequancy = IniFile->ReadFloat("ModellingParmeters", "PointsFrequancy", 0);
+    TimeShift = IniFile->ReadFloat("ModellingParmeters", "TimeShift", 0);
+
+    delete IniFile;
+    return;
 }
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>

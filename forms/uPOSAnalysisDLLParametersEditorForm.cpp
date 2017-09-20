@@ -9,9 +9,10 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TuPOSAnalysisParametersEditorForm *uPOSAnalysisParametersEditorForm;
+TAnalysisParametersEditorForm *AnalysisParametersEditorForm;
 //---------------------------------------------------------------------------
-bool TuPOSAnalysisParametersEditorForm::TryToInt(AnsiString &Number,  int &Variable)
+/*
+bool TAnalysisParametersEditorForm::TryToInt(AnsiString &Number,  int &Variable)
 {
     if(!TryStrToInt(Number, Variable))
     {
@@ -24,7 +25,7 @@ bool TuPOSAnalysisParametersEditorForm::TryToInt(AnsiString &Number,  int &Varia
     return true;
 }
 //---------------------------------------------------------------------------
-bool TuPOSAnalysisParametersEditorForm::TryToFloat(AnsiString &Number, double &Variable)
+bool TAnalysisParametersEditorForm::TryToFloat(AnsiString &Number, double &Variable)
 {
     if(!TryStrToFloat(Number, Variable))
     {
@@ -36,26 +37,33 @@ bool TuPOSAnalysisParametersEditorForm::TryToFloat(AnsiString &Number, double &V
     }
     return true;
 }
+*/
 //---------------------------------------------------------------------------
-void TuPOSAnalysisParametersEditorForm::SetStatusbarText(AnsiString Message)
+void TAnalysisParametersEditorForm::SetStatusbarText(AnsiString Message)
 {
     StatusBar->Panels->Items[0]->Text = Message;
 }
 //---------------------------------------------------------------------------
-__fastcall TuPOSAnalysisParametersEditorForm::TuPOSAnalysisParametersEditorForm(TComponent* Owner)
+__fastcall TAnalysisParametersEditorForm::TAnalysisParametersEditorForm(TComponent* Owner)
     : TForm(Owner)
 {
 }
 //---------------------------------------------------------------------------
-void __fastcall TuPOSAnalysisParametersEditorForm::FormClose(
+void __fastcall TAnalysisParametersEditorForm::FormClose(
       TObject *Sender, TCloseAction &Action)
 {
     Action = caFree;
 }
 //---------------------------------------------------------------------------
-void TuPOSAnalysisParametersEditorForm::LoadForm(AnsiString SelectedFileName)
+void TAnalysisParametersEditorForm::LoadForm(AnsiString SelectedFileName)
 {
-    uPOSAnalysisParametersEditorForm->FileName = SelectedFileName;
+    /*
+    Height = 231;
+    ClientHeight = 204;
+    Width = 324;
+    ClientWidth = 316;
+    */
+    AnalysisParametersEditorForm->FileName = SelectedFileName;
     StringGrid->Cells[0][0] = "Шаг квантования";
     StringGrid->Cells[0][1] = "Допуск на расхождение";
     StringGrid->Cells[0][2] = "Количество точек";
@@ -66,8 +74,7 @@ void TuPOSAnalysisParametersEditorForm::LoadForm(AnsiString SelectedFileName)
     StringGrid->Cells[1][2] = EvaluationParameters.MinimumFailedPoints;
 }
 //---------------------------------------------------------------------------
-
-void __fastcall TuPOSAnalysisParametersEditorForm::ButtonSaveClick(
+void __fastcall TAnalysisParametersEditorForm::ButtonSaveClick(
       TObject *Sender)
 {
     SetStatusbarText("");
@@ -78,7 +85,7 @@ void __fastcall TuPOSAnalysisParametersEditorForm::ButtonSaveClick(
         return;
     }
 
-    FileName = ExtractFilePath(uPOSAnalysisParametersEditorForm->FileName) + LabeledEditFileName->Text + ".ini";
+    FileName = ExtractFilePath(FileName) + LabeledEditFileName->Text + ".ini";
     TCommonEvaluationParameters EvaluationParameters;
 
     if(!TryToFloat(StringGrid->Cells[1][0], EvaluationParameters.QantumStep))
@@ -128,7 +135,7 @@ void __fastcall TuPOSAnalysisParametersEditorForm::ButtonSaveClick(
     }
 }
 //---------------------------------------------------------------------------
-void __fastcall TuPOSAnalysisParametersEditorForm::ButtonCancelClick(
+void __fastcall TAnalysisParametersEditorForm::ButtonCancelClick(
       TObject *Sender)
 {
     Close();
