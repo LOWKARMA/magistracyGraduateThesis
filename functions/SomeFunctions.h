@@ -14,6 +14,9 @@ type* WriteToArr(type *array, int FileHandle, int ParAmount, int FileLength);   
 template <class type>
 type RoundTo(type Value, int SymbolsAfterComma);//очень плохо
 
+AnsiString GetFileNameWithoutExt(AnsiString FileName);
+
+AnsiString ChangeDecimalSeparator(AnsiString Number);
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
 bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> &Parameter,AnsiString FileName)
@@ -63,5 +66,28 @@ type RoundTo(type val, int sac)
     return b;
 }
 //---------------------------------------------------------------------------
-
+AnsiString GetFileNameWithoutExt(AnsiString FileName)
+{
+    for(unsigned int i = FileName.Length(); i >= 1; i--)
+        if(FileName[i] == '.')
+            return FileName.SubString(0, i - 1);
+    return FileName;
+}
+//---------------------------------------------------------------------------
+AnsiString ChangeDecimalSeparator(AnsiString Text)
+{
+    unsigned int Separators = 0;
+    for(int i = 1; i < Text.Length(); i++)
+    {
+        if(Text[i] == ',' || Text[i] == '.')
+        {
+            Text[i] = DecimalSeparator;
+            Separators++;
+            if(Separators > 1)
+                return Text.SubString(0, i - 1);
+        }
+    }
+    return Text;
+}
+//---------------------------------------------------------------------------
 #endif

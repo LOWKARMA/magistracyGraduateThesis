@@ -1,8 +1,8 @@
 object uPOSAnalysisForm: TuPOSAnalysisForm
-  Left = 985
-  Top = 76
-  Width = 935
-  Height = 483
+  Left = 264
+  Top = 141
+  Width = 1283
+  Height = 775
   Caption = 'uPOSAnalysisForm'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,31 +18,31 @@ object uPOSAnalysisForm: TuPOSAnalysisForm
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object LoadParametersButton: TButton
-    Left = 8
-    Top = 328
-    Width = 75
-    Height = 25
-    Caption = 'Load'
-    Enabled = False
-    TabOrder = 0
-    OnClick = LoadParametersButtonClick
-  end
   object GroupBoxFileParameters: TGroupBox
     Left = 8
     Top = 8
     Width = 313
     Height = 313
     Caption = 'GroupBoxFileParameters'
-    TabOrder = 1
+    TabOrder = 0
     object FileParametersCheckListBox: TCheckListBox
       Left = 8
       Top = 16
       Width = 297
-      Height = 289
+      Height = 257
       OnClickCheck = FileParametersCheckListBoxClickCheck
       ItemHeight = 13
       TabOrder = 0
+    end
+    object LoadParametersButton: TButton
+      Left = 8
+      Top = 280
+      Width = 75
+      Height = 25
+      Caption = 'Load'
+      Enabled = False
+      TabOrder = 1
+      OnClick = LoadParametersButtonClick
     end
   end
   object GroupBoxModellingParameters: TGroupBox
@@ -51,7 +51,7 @@ object uPOSAnalysisForm: TuPOSAnalysisForm
     Width = 505
     Height = 313
     Caption = 'GroupBoxParameters'
-    TabOrder = 2
+    TabOrder = 1
     object ParametersTabbedNotebook: TTabbedNotebook
       Left = 8
       Top = 16
@@ -94,21 +94,46 @@ object uPOSAnalysisForm: TuPOSAnalysisForm
       TabOrder = 1
       OnClick = FileListBoxParametersListClick
     end
-    object Button1: TButton
+    object ButtonEditParameterFile: TButton
       Left = 8
       Top = 280
-      Width = 75
+      Width = 89
       Height = 25
-      Caption = 'Button1'
+      Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
       TabOrder = 2
+      OnClick = ButtonEditParameterFileClick
     end
-    object Button2: TButton
-      Left = 88
+    object ButtonDeleteParameterFile: TButton
+      Left = 184
       Top = 280
       Width = 75
       Height = 25
-      Caption = 'Button2'
+      Caption = #1059#1076#1072#1083#1080#1090#1100
       TabOrder = 3
+      OnClick = ButtonDeleteParameterFileClick
     end
+    object ButtonAddParameterFile: TButton
+      Left = 104
+      Top = 280
+      Width = 75
+      Height = 25
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+      TabOrder = 4
+      OnClick = ButtonAddParameterFileClick
+    end
+  end
+  object MainFormStatusBar: TStatusBar
+    Left = 0
+    Top = 729
+    Width = 1275
+    Height = 19
+    Panels = <
+      item
+        Width = 50
+      end
+      item
+        Width = 50
+      end>
+    SimplePanel = False
   end
 end

@@ -13,12 +13,14 @@
       D:\!Alexey\functions\smoothParameter\smooth.obj 
       D:\!Alexey\classes\TStepMotor\ClassTStepMotor.obj 
       D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.obj 
-      D:\!Viktor\Work\Common\class_Errors_old.obj"/>
+      D:\!Viktor\Work\Common\class_Errors_old.obj 
+      uPOSAnalysisDLLParametersEditorForm.obj 
+      D:\!Alexey\functions\SomeFunctions.obj"/>
     <RESFILES value="uPOSAnalysisDLL.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) uPOSAnalysisDLLForm.dfm"/>
+    <RESDEPEN value="$(RESFILES) uPOSAnalysisDLLForm.dfm uPOSAnalysisDLLParametersEditorForm.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value=""/>
     <SPARELIBS value="rtl.lib vcl.lib vclx.lib"/>
@@ -29,7 +31,7 @@
       inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
       bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
       indy.bpi bcb2kaxserver.bpi"/>
-    <PATHCPP value=".;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common"/>
+    <PATHCPP value=".;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Viktor\Work\Common;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\functions"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;"/>
     <PATHASM value=".;"/>
@@ -39,14 +41,15 @@
     <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT;_RTLDLL;USEPACKAGES"/>
     <MAINSOURCE value="uPOSAnalysisDLL.bpf"/>
-    <INCLUDEPATH value="D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="D:\!Alexey\functions;..\;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="D:\!Alexey\functions;..\;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-ID:\!Alexey\functions\DigitalQuantum -ID:\!Viktor\Work\Common 
-      -ID:\!Alexey\classes\TStepMotor -ID:\!Alexey\functions\smoothParameter 
+    <IDLCFLAGS value="-ID:\!Alexey\functions -I..\. -ID:\!Alexey\functions\DigitalQuantum 
+      -ID:\!Viktor\Work\Common -ID:\!Alexey\classes\TStepMotor 
+      -ID:\!Alexey\functions\smoothParameter 
       -ID:\!Alexey\classes\TComonEvaluation 
       -I&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot; 
       -ID:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL -I$(BCB)\include 
@@ -80,6 +83,8 @@
       <FILE FILENAME="D:\!Alexey\classes\TStepMotor\ClassTStepMotor.cpp" FORMNAME="" UNITNAME="ClassTStepMotor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.cpp" FORMNAME="" UNITNAME="DigitalQuantum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Viktor\Work\Common\class_Errors_old.cpp" FORMNAME="" UNITNAME="class_Errors_old" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSAnalysisDLLParametersEditorForm.cpp" FORMNAME="uPOSAnalysisParametersEditorForm" UNITNAME="uPOSAnalysisDLLParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Alexey\functions\SomeFunctions.cpp" FORMNAME="" UNITNAME="SomeFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

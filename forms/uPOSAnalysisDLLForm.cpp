@@ -6,15 +6,14 @@
 #include <Inifiles.hpp>
 #include "uPOSAnalysisDLLForm.h"
 #include <class_ParameterTMI_old.h>
+#include <system.hpp>
+#include "uPOSAnalysisDLLParametersEditorForm.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TuPOSAnalysisForm *uPOSAnalysisForm;
-
-
-
-int tmp[4]= {-1,-1,-1,-1};
+//int tmp[4]= {-1,-1,-1,-1};
 //---------------------------------------------------------------------------
 __fastcall TuPOSAnalysisForm::TuPOSAnalysisForm(TComponent* Owner)
     : TForm(Owner)
@@ -38,6 +37,7 @@ void __fastcall TuPOSAnalysisForm::FormClose(TObject *Sender,
       TCloseAction &Action)
 {
     Action = caFree;
+    delete SelectedItemsFlags;
 }
 //---------------------------------------------------------------------------
 void __fastcall TuPOSAnalysisForm::LoadInfoOnForm()
@@ -52,12 +52,36 @@ void __fastcall TuPOSAnalysisForm::LoadInfoOnForm()
         Application->MessageBoxA(ErrorMessage.c_str(), "Ошибка!", MB_OK|MB_ICONERROR);
         return;
     }
+
     FileUTMI.GetParsName((TStringList*)FileParametersCheckListBox->Items);
     FileParametersCheckListBox->MultiSelect = false;
     LoadParametersButton->Enabled = true;
-    for(int i = 0; i < 4; ++i)
+    SelectedItemsFlags = new int [ParametersTabbedNotebook->Pages->Count];
+    for(int i = 0; i < ParametersTabbedNotebook->Pages->Count; ++i)
         SelectedItemsFlags[i] = -1;
-
+    SetStatusbarText("", "Пока всё идёт хорошо.");
+    //MainFormStatusBar->Panels->Items[1]->Text = "Пока всё идёт хорошо.";
+    FileListBoxParametersList->Mask = "*.ini";
+}
+//---------------------------------------------------------------------------
+void TuPOSAnalysisForm::SetStatusbarText(AnsiString FirstMsg, AnsiString SecondMsg)
+{
+    MainFormStatusBar->Panels->Items[0]->Text = FirstMsg;
+    MainFormStatusBar->Panels->Items[1]->Text = SecondMsg;
+}
+//---------------------------------------------------------------------------
+bool TuPOSAnalysisForm::CheckParametersFilesPath()
+{
+    if(ModellingParametersFile.IsEmpty())
+        return false;
+    else if(AnalysisParametersFile.IsEmpty())
+        return false;
+    else if(StepmotorCharactristicsFile.IsEmpty())
+        return false;
+    else if(TSUparametersFile.IsEmpty())
+        return false;
+    else
+        return true;
 }
 //---------------------------------------------------------------------------
 void TuPOSAnalysisForm::SetSelectedItemFlag(TFileListBox *TabbedNotebook, int TabIndex)
@@ -74,15 +98,18 @@ void TuPOSAnalysisForm::SetSelectedItemFlag(TFileListBox *TabbedNotebook, int Ta
 //---------------------------------------------------------------------------
 void __fastcall TuPOSAnalysisForm::LoadParametersButtonClick(TObject *Sender)
 {
-    if( !(CheckedItemsCount == 2 && FileListBoxParametersList->FileName != "") ) //Кнопка активна только при выборе 2-х параметров и
+    SetStatusbarText("", "Пока всё идёт хорошо.");
+    //if( !(CheckedItemsCount == 2 && FileListBoxParametersList->FileName != "") ) //Кнопка активна только при выборе 2-х параметров и
+    if( CheckedItemsCount != 2 || !CheckParametersFilesPath())
+    {
+        SetStatusbarText("Ошибка!", "Выберете входные параметры и параметры анализа.");
         return;
-
+    }
     TFileUTMI FileUTMI;
     FileUTMI.Open_uTMI(UTMIFileName);
     TParTMI *CheckhedParameters = new TParTMI [CheckedItemsCount];
 
-
-    for(unsigned int i = 0, j = 0; i < FileParametersCheckListBox->Count; i++)
+    for(int i = 0, j = 0; i < FileParametersCheckListBox->Count; i++)
     {
         if(!FileParametersCheckListBox->Checked[i])
             continue;
@@ -106,56 +133,44 @@ void __fastcall TuPOSAnalysisForm::LoadParametersButtonClick(TObject *Sender)
     TParameterTMI_Old <double, double> ParameterPOS(ParameterPOSArray, PointsCounter);
 
     TPOSModellingParameters <double> POSModellingParameters;
-    POSModellingParameters.LoadFormIniFile(ModellingParametersFile);
+    if(!POSModellingParameters.LoadFormIniFile(ModellingParametersFile))
+    {
+        SetStatusbarText("Ошибка!", "Ошибка открытия\\чтения файла параметров моделирования.");
+        return;
+    }
 
     TDigitalQuantumParameters <double> ACDParameters;
-    ACDParameters.LoadFormIniFile(ModellingParametersFile);
+    if(!ACDParameters.LoadFormIniFile(ModellingParametersFile))
+    {
+        SetStatusbarText("Ошибка!", "Ошибка открытия\\чтения файла параметров АЦП.");
+        return;
+    }
 
     TCommonEvaluationParameters CommonParameters;
-    CommonParameters.LoadFormIniFile(AnalysisParametersFile);
+    if(!CommonParameters.LoadFormIniFile(AnalysisParametersFile))
+    {
+        SetStatusbarText("Ошибка!", "Ошибка открытия\\чтения файла параметров общего анализа.");
+        return;
+    }
 
     TStepMotorCharacteristics StepMotorCharacteristics;
-    StepMotorCharacteristics.LoadFormIniFile(StepmotorCharactristicsFile);
-    //TCommonEvaluation <double, double> POS;
-    /*
-    TIniFile* IniFile = new TIniFile(ModellingParametersFile);
-    TStringList *List = new TStringList;
-    IniFile->ReadSection("ModellingParmeters", List);
-    IniFile->ReadSectionValues("ModellingParmeters", List);
-    int tmp;
-    for(unsigned int i = 0; i < List->Count; ++i)
+    if(!StepMotorCharacteristics.LoadFormIniFile(StepmotorCharactristicsFile))
     {
-        //if(List->Names[i] == "test0")
-        //StrToInt(List->Values[i]);
-        List->Names[i];
-        ShowMessage(List->Values[ List->Names[i]]);
-        List->Strings[i];
-        //List->Objects[i];
-        //List->Text[i];
+        SetStatusbarText("Ошибка!", "Ошибка открытия\\чтения файла параметров характеристик ШМ.");
+        return;
     }
-    //List->Names
-    */
 
-    /*
-    for(unsigned int i = 0; i < CheckhedParameters[0].CountPoint; i++)
-    {     CheckhedParameters[0].Point[i].Y;
-           CheckhedParameters[1].Point[i].Y;} */
-
-    /*
-    TParTMI *CheckhedParameters = new TParTMI [FileParametersCheckListBox->SelCount];
-    for(unsigned short i = 0; i < FileParametersCheckListBox->SelCount; i++)
-        CheckhedParameters[i] = *FileUTMI->GetPar(i);
-
-    for(unsigned int i = 0; i < CheckhedParameters[0].CountPoint; i++)
-         CheckhedParameters[0].Point[i].X;
-    */
+    TControlImpulse TSULevels;
+    if(!TSULevels.LoadFormIniFile(TSUparametersFile))
+    {
+        SetStatusbarText("Ошибка!", "Ошибка открытия\\чтения файла параметров ТСУ.");
+        return;
+    }
 }
 //---------------------------------------------------------------------------
-
-
 void __fastcall TuPOSAnalysisForm::FileParametersCheckListBoxClickCheck(TObject *Sender) //Нельзя выбирать больше 2-х параметров                                                   //
 {
-    for(unsigned int i = 0; i < FileParametersCheckListBox->Count; i++)
+    for(int i = 0; i < FileParametersCheckListBox->Count; i++)
     {
         if(FileParametersCheckListBox->Selected[i] && FileParametersCheckListBox->Checked[i])
         {
@@ -211,7 +226,6 @@ void __fastcall TuPOSAnalysisForm::ParametersTabbedNotebookChange(
             FileListBoxParametersList->Directory = ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\";
             break;
     }
-    //FileListBoxParametersList->
 }
 //---------------------------------------------------------------------------
 void __fastcall TuPOSAnalysisForm::FileListBoxParametersListClick(
@@ -247,7 +261,77 @@ void __fastcall TuPOSAnalysisForm::FileListBoxParametersListClick(
             TSUparametersFile = "";
             break;
     }
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TuPOSAnalysisForm::ButtonDeleteParameterFileClick(
+      TObject *Sender)
+{
+    if(FileListBoxParametersList->FileName.IsEmpty())
+    {
+        SetStatusbarText("Ошибка!", "Сначала выберите файл для удаления.");
+        return;
+    }
+    else if(6 == Application->MessageBox("Вы действительно хотите удалить этот файл?\0", "Предупреждение.\0", MB_YESNO|MB_ICONERROR))
+    {
+        DeleteFile(FileListBoxParametersList->FileName);
+        SetStatusbarText("", "Файл удалён.");
+        FileListBoxParametersList->Update();
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TuPOSAnalysisForm::ButtonEditParameterFileClick(
+      TObject *Sender)
+{
+    if(FileListBoxParametersList->FileName.IsEmpty())
+    {
+        SetStatusbarText("Ошибка!", "Ошибка открытия редактируемого файла.");
+        return;
+    }
+
+    switch(ParametersTabbedNotebook->PageIndex)
+    {
+        case 0:
+            SetStatusbarText("Ошибка!", "Форма параметров моделирования дорабатывается");
+            break;
+        case 1:
+            Application->CreateForm(__classid(TuPOSAnalysisParametersEditorForm), &uPOSAnalysisParametersEditorForm);
+            uPOSAnalysisParametersEditorForm->LoadForm(FileListBoxParametersList->FileName);
+            break;
+        case 2:
+            SetStatusbarText("Ошибка!", "Форма параметров характреристик ШМ дорабатывается");
+            break;
+        case 3:
+            SetStatusbarText("Ошибка!", "Форма параметров параметров ТСУ дорабатывается");
+            break;
+        default:
+            break;
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TuPOSAnalysisForm::ButtonAddParameterFileClick(
+      TObject *Sender)
+{
+    switch(ParametersTabbedNotebook->PageIndex)
+    {
+        case 0:
+            SetStatusbarText("Ошибка!", "Форма параметров моделирования дорабатывается");
+            break;
+        case 1:
+            Application->CreateForm(__classid(TuPOSAnalysisParametersEditorForm), &uPOSAnalysisParametersEditorForm);
+            uPOSAnalysisParametersEditorForm->LoadForm(ExtractFilePath(Application->ExeName) + "uPOSModellingParameters\\AnalysisParameters\\"); //NewFile.ini");
+            break;
+        case 2:
+            SetStatusbarText("Ошибка!", "Форма параметров характреристик ШМ дорабатывается");
+            break;
+        case 3:
+            SetStatusbarText("Ошибка!", "Форма параметров параметров ТСУ дорабатывается");
+            break;
+        default:
+            break;
+    }
 }
 //---------------------------------------------------------------------------
 

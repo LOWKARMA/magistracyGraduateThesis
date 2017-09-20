@@ -26,8 +26,10 @@ __published:	// IDE-managed Components
     TGroupBox *GroupBoxModellingParameters;
     TTabbedNotebook *ParametersTabbedNotebook;
     TFileListBox *FileListBoxParametersList;
-    TButton *Button1;
-    TButton *Button2;
+    TButton *ButtonEditParameterFile;
+    TButton *ButtonDeleteParameterFile;
+    TStatusBar *MainFormStatusBar;
+    TButton *ButtonAddParameterFile;
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
     void __fastcall LoadParametersButtonClick(TObject *Sender);
     void __fastcall FileParametersCheckListBoxClickCheck(TObject *Sender);
@@ -35,11 +37,16 @@ __published:	// IDE-managed Components
     void __fastcall ParametersTabbedNotebookChange(TObject *Sender,
           int NewTab, bool &AllowChange);
     void __fastcall FileListBoxParametersListClick(TObject *Sender);
+    void __fastcall ButtonDeleteParameterFileClick(TObject *Sender);
+    void __fastcall ButtonEditParameterFileClick(TObject *Sender);
+    void __fastcall ButtonAddParameterFileClick(TObject *Sender);
 private:	// User declarations
     unsigned short CheckedItemsCount;
     AnsiString ModellingParametersFile, AnalysisParametersFile, StepmotorCharactristicsFile, TSUparametersFile;
     //bool LoadModellingParameters(AnsiString ModellingParametersFile, TPOSModellingParameters <TypeOfX, TypeOfY>* ModellingParameters);
-    int SelectedItemsFlags[4];
+    int *SelectedItemsFlags;
+    bool CheckParametersFilesPath();
+    void SetStatusbarText(AnsiString, AnsiString);
 public:		// User declarations
     __fastcall TuPOSAnalysisForm(TComponent* Owner);
     AnsiString UTMIFileName;

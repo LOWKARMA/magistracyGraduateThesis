@@ -6,6 +6,8 @@
 #include <class_FileTP.h>
 #include <class_Errors_old.h>
 #include <IniFiles.hpp>
+#include <DigitalQuantum.h>
+#include <SomeFunctions.h>
 //---------------------------------------------------------------------------
 struct TIntervalCharacteristics
 {
@@ -223,7 +225,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
                                                                             unsigned int QuantumLineIntervals, char RoundingMethod,
                                                                             TIntervalCharacteristics* LongestIntervalWithoutControlImpulses)
 {
-    //AnsiString FName = "D:\\2134241";
+    AnsiString FName = "D:\\2134241";
 
     if(PointFrequency == 0)
     {
@@ -278,7 +280,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
     int LvlSwitch = 1;
 
     //Сохранение промежуточных результатов
-    //SaveToFile(ControlImpulse,FName+"_1.d2");
+    SaveToFile(ControlImpulse,FName+"_1.d2");
 
     //счетчик переключения уровней
     for(unsigned int i = 1; i < ControlImpulse.CountPoint; i++)
@@ -313,7 +315,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
 
 
     //Сохранение промежуточных результатов
-    //SaveToFile(CuttedContImp, FName+"_2.d2");
+    SaveToFile(CuttedContImp, FName+"_2.d2");
 
     for(unsigned int i = 0; i < CuttedContImp.CountPoint; i++)
     {
@@ -487,7 +489,7 @@ bool TControlImpulse::LoadFormIniFile(AnsiString IniFileName)
         return false;
     }
 
-    for(unsigned int i = 0; i < List->Count; ++i)
+    for(int i = 0; i < List->Count; ++i)
     {
         if(List->Names[i] == "Level_12Min")
         {
