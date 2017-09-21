@@ -15,16 +15,18 @@
       D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.obj 
       D:\!Viktor\Work\Common\class_Errors_old.obj 
       uPOSAnalysisDLLParametersEditorForm.obj 
-      D:\!Alexey\functions\SomeFunctions.obj 
       uPOSModellingParametersEditorForm.obj 
-      uPOSStepMotorParametersEditorForm.obj uPOSTSUParametersEditorForm.obj"/>
+      uPOSStepMotorParametersEditorForm.obj uPOSTSUParametersEditorForm.obj 
+      D:\!Alexey\functions\SomeFunctions.obj uPOSAnalysisResultsForm.obj 
+      uPOSSaveParameterAS.obj"/>
     <RESFILES value="uPOSAnalysisDLL.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) uPOSAnalysisDLLForm.dfm 
       uPOSAnalysisDLLParametersEditorForm.dfm uPOSModellingParametersEditorForm.dfm 
-      uPOSStepMotorParametersEditorForm.dfm uPOSTSUParametersEditorForm.dfm"/>
+      uPOSStepMotorParametersEditorForm.dfm uPOSTSUParametersEditorForm.dfm 
+      uPOSAnalysisResultsForm.dfm uPOSSaveParameterAS.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value=""/>
     <SPARELIBS value="rtl.lib vcl.lib vclx.lib"/>
@@ -45,13 +47,13 @@
     <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT;_RTLDLL;USEPACKAGES"/>
     <MAINSOURCE value="uPOSAnalysisDLL.bpf"/>
-    <INCLUDEPATH value="D:\!Alexey\functions;..\;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="D:\!Alexey\functions;..\;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="..\;D:\!Alexey\functions;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="..\;D:\!Alexey\functions;..;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-ID:\!Alexey\functions -I..\. -ID:\!Alexey\functions\DigitalQuantum 
+    <IDLCFLAGS value="-I..\. -ID:\!Alexey\functions -ID:\!Alexey\functions\DigitalQuantum 
       -ID:\!Viktor\Work\Common -ID:\!Alexey\classes\TStepMotor 
       -ID:\!Alexey\functions\smoothParameter 
       -ID:\!Alexey\classes\TComonEvaluation 
@@ -88,10 +90,12 @@
       <FILE FILENAME="D:\!Alexey\functions\DigitalQuantum\DigitalQuantum.cpp" FORMNAME="" UNITNAME="DigitalQuantum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="D:\!Viktor\Work\Common\class_Errors_old.cpp" FORMNAME="" UNITNAME="class_Errors_old" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="uPOSAnalysisDLLParametersEditorForm.cpp" FORMNAME="AnalysisParametersEditorForm" UNITNAME="uPOSAnalysisDLLParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
-      <FILE FILENAME="D:\!Alexey\functions\SomeFunctions.cpp" FORMNAME="" UNITNAME="SomeFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="uPOSModellingParametersEditorForm.cpp" FORMNAME="ModellingParametersEditorForm" UNITNAME="uPOSModellingParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="uPOSStepMotorParametersEditorForm.cpp" FORMNAME="StepMotorCharacteristicsEditorForm" UNITNAME="uPOSStepMotorParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="uPOSTSUParametersEditorForm.cpp" FORMNAME="TSUparametersEditorForm" UNITNAME="uPOSTSUParametersEditorForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\!Alexey\functions\SomeFunctions.cpp" FORMNAME="" UNITNAME="SomeFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSAnalysisResultsForm.cpp" FORMNAME="AnalysisResultsForm" UNITNAME="uPOSAnalysisResultsForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="uPOSSaveParameterAS.cpp" FORMNAME="SaveAsForm" UNITNAME="uPOSSaveParameterAS" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
@@ -128,16 +132,21 @@ Comments=
 c:\program files (x86)\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
 
 [HistoryLists\hlIncludePath]
-Count=3
-Item0=D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
-Item1=D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
-Item2=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Count=6
+Item0=D:\!Alexey\functions;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item1=D:\!Alexey\functions;..;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item2=D:\!Alexey\functions;..\;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item3=D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item4=D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
+Item5=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\include;$(BCB)\include\vcl
 
 [HistoryLists\hlLibraryPath]
-Count=3
-Item0=D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
-Item1=D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
-Item2=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Count=5
+Item0=D:\!Alexey\functions;..;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Item1=D:\!Alexey\functions;..\;D:\!Alexey\functions\DigitalQuantum;D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Item2=D:\!Viktor\Work\Common;D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Item3=D:\!Alexey\classes\TStepMotor;D:\!Alexey\functions\smoothParameter;D:\!Alexey\classes\TComonEvaluation;D:\!Viktor\Work\Common;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
+Item4=D:\Alexey\sources&amp;projects\uPOSAnalysis\uPOSAnalysisDLL;$(BCB)\lib\obj;$(BCB)\lib
 
 [HistoryLists\hlDebugSourcePath]
 Count=1

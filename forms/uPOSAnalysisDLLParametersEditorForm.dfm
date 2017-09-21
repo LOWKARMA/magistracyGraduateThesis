@@ -1,9 +1,9 @@
 object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
-  Left = 1422
-  Top = 435
+  Left = 1148
+  Top = 259
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'AnalysisParametersEditorForm'
+  Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1072#1085#1072#1083#1080#1079#1072
   ClientHeight = 204
   ClientWidth = 316
   Color = clBtnFace
@@ -50,7 +50,7 @@ object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
     Top = 152
     Width = 75
     Height = 25
-    Caption = 'Save'
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
     TabOrder = 1
     OnClick = ButtonSaveClick
   end
@@ -59,7 +59,7 @@ object AnalysisParametersEditorForm: TAnalysisParametersEditorForm
     Top = 152
     Width = 75
     Height = 25
-    Caption = 'Cancel'
+    Caption = #1054#1090#1084#1077#1085#1072
     TabOrder = 2
     OnClick = ButtonCancelClick
   end

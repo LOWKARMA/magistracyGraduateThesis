@@ -13,33 +13,6 @@
 #pragma resource "*.dfm"
 
 TModellingParametersEditorForm *ModellingParametersEditorForm;
-
-//---------------------------------------------------------------------------
-bool TModellingParametersEditorForm::TryToInt(AnsiString &Number,  int &Variable)
-{
-    if(!TryStrToInt(Number, Variable))
-    {
-        Number = ChangeDecimalSeparator(Number);
-        if(!TryStrToInt(Number, Variable))
-            return false;
-        else
-            return true;
-    }
-    return true;
-}
-//---------------------------------------------------------------------------
-bool TModellingParametersEditorForm::TryToFloat(AnsiString &Number, double &Variable)
-{
-    if(!TryStrToFloat(Number, Variable))
-    {
-        Number = ChangeDecimalSeparator(Number);
-        if(!TryStrToFloat(Number, Variable))
-            return false;
-        else
-            return true;
-    }
-    return true;
-}
 //---------------------------------------------------------------------------
 void TModellingParametersEditorForm::SetStatusbarText(AnsiString Message)
 {

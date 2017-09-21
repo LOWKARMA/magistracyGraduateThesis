@@ -1,9 +1,9 @@
 object ModellingParametersEditorForm: TModellingParametersEditorForm
-  Left = 1051
-  Top = 291
+  Left = 1209
+  Top = 281
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'ModellingParametersEditorForm'
+  Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1084#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1103
   ClientHeight = 333
   ClientWidth = 316
   Color = clBtnFace
@@ -93,7 +93,7 @@ object ModellingParametersEditorForm: TModellingParametersEditorForm
     Top = 280
     Width = 75
     Height = 25
-    Caption = 'Save'
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
     TabOrder = 3
     OnClick = Button_SaveClick
   end
@@ -102,7 +102,7 @@ object ModellingParametersEditorForm: TModellingParametersEditorForm
     Top = 280
     Width = 75
     Height = 25
-    Caption = 'Cancel'
+    Caption = #1054#1090#1084#1077#1085#1072
     TabOrder = 4
     OnClick = Button_CancelClick
   end

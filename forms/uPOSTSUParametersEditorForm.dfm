@@ -1,9 +1,9 @@
 object TSUparametersEditorForm: TTSUparametersEditorForm
-  Left = 1315
-  Top = 370
+  Left = 1504
+  Top = 161
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
-  Caption = 'TSUparametersEditorForm'
+  Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1058#1057#1059
   ClientHeight = 340
   ClientWidth = 323
   Color = clBtnFace
@@ -22,9 +22,9 @@ object TSUparametersEditorForm: TTSUparametersEditorForm
   object Label_DigitalQuantumParameters: TLabel
     Left = 8
     Top = 56
-    Width = 203
+    Width = 106
     Height = 13
-    Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1084#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1103'  '#1089#1077#1090#1082#1080' '#1040#1062#1055
+    Caption = #1059#1088#1086#1074#1085#1080' '#1085#1072#1087#1088#1103#1078#1077#1085#1080#1103':'
   end
   object StatusBar: TStatusBar
     Left = 0
@@ -84,15 +84,17 @@ object TSUparametersEditorForm: TTSUparametersEditorForm
     Top = 292
     Width = 75
     Height = 25
-    Caption = 'Save'
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
     TabOrder = 3
+    OnClick = Button_SaveClick
   end
   object Button_Cancel: TButton
     Left = 96
     Top = 292
     Width = 75
     Height = 25
-    Caption = 'Cancel'
+    Caption = #1054#1090#1084#1077#1085#1072
     TabOrder = 4
+    OnClick = Button_CancelClick
   end
 end

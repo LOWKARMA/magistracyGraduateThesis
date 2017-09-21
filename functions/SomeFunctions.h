@@ -7,7 +7,10 @@
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
 bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> &Parameter,AnsiString OutputFileName);  //—охранение параметра в файл
-
+/*
+template <class TypeOfX, class TypeOfY>
+bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> *Parameter,AnsiString OutputFileName);
+*/
 template <class type>
 type* WriteToArr(type *array, int FileHandle, int ParAmount, int FileLength);            //—читать файл в массив заданного типа
 
@@ -18,8 +21,8 @@ AnsiString GetFileNameWithoutExt(AnsiString FileName); //
 
 AnsiString ChangeDecimalSeparator(AnsiString Number); // changes "," to "." or vise-versa
 
-bool TryToInt(AnsiString &Number,  int &Variable);
-bool TryToFloat(AnsiString &Number,  float &Variable);
+//bool TryToInt(AnsiString &Number,  int &Variable);
+//bool TryToFloat(AnsiString &Number,  float &Variable);
 //---------------------------------------------------------------------------
 template <class TypeOfX, class TypeOfY>
 bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> &Parameter,AnsiString FileName)
@@ -38,7 +41,25 @@ bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> &Parameter,AnsiString FileN
    else
     return false;
 }
-
+/*
+template <class TypeOfX, class TypeOfY>
+bool SaveToFile(TParameterTMI_Old <TypeOfX, TypeOfY> *Parameter,AnsiString FileName)
+{
+   if(Parameter->CountPoint>0)
+    {
+        TFileStream* File1=new TFileStream(FileName,fmCreate);
+        for(unsigned int i=0;i<Parameter->CountPoint;i++)
+        {
+            File1->Write(&Parameter->Points[i].X,sizeof(TypeOfX));
+            File1->Write(&Parameter->Points[i].Y,sizeof(TypeOfY));
+        }
+        delete File1;
+        return true;
+    }
+   else
+    return false;
+}
+*/
 //---------------------------------------------------------------------------
 template <class type>
 type* WriteToArr(type *arr, int fh, int pa, int fl)

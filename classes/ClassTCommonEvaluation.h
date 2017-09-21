@@ -3,10 +3,12 @@
 
 #include <smooth.cpp>
 #include <class_ParameterTMI_old.h>
+#include <class_ParameterTMI.h>
 #include <ClassTStepMotor.h>
 #include <class_Errors_old.h>
 #include <math.h>
 #include <IniFiles.hpp>
+#include <SomeFunctions.h>
 //---------------------------------------------------------------------------
 struct TCommonEvaluationParameters  //Параметры общего анализа (первичной оценки)
 {
@@ -103,6 +105,8 @@ class TCommonEvaluation
         unsigned int CalculateVariationsAndGetFailedIntervals(TIntervalCharacteristics* &FailedIntervalsList);
         int GetError(AnsiString &Message);
         int GetWarning(AnsiString &Message);
+        void SaveModelToFile(AnsiString FileName);
+        TPointTMI* GetModelAsArrayOfPoints(long &PointsCounter);
 };
 //---------------------------------------------------------------------------
 TCommonEvaluationParameters::TCommonEvaluationParameters()
@@ -660,9 +664,9 @@ bool TCommonEvaluation <TypeOfX, TypeOfY>::Load(TParameterTMI_Old <TypeOfX, Type
     else
         StepMotor = new TStepMotor <TypeOfX, TypeOfY>;
 
-    if(!StepMotor->LoadParameter(*ControlImpulsesParameter, POSModelParameters->DeltaVoltage, POSModelParameters->StartVoltage,
-                            *ControlLevels, POSModelParameters->PointsFrequancy, POSModelParameters->MaximumLuft,
-                            POSModelParameters->CurrentLuftPosition))
+    if(!StepMotor->LoadParameter(*ControlImpulsesParameter, StepMotorCharacteristics->DeltaVoltage, POSModelParameters->StartVoltage,
+                            *ControlLevels, POSModelParameters->PointsFrequancy, StepMotorCharacteristics->MaximumLuft,
+                            StepMotorCharacteristics->CurrentLuftPosition))
         return false;
 
     if(this->POSModel)
@@ -820,9 +824,9 @@ unsigned int TCommonEvaluation <TypeOfX, TypeOfY>::CalculateVariationsAndGetFail
     TIntervalCharacteristics Temp;
     bool isInsideFailedInterval = false;
 
-    for(unsigned int i = 0; i < FirstParameter->CountPoint; i++)
+    for(unsigned int i = 0; i < FirstParameter->CountPoint - 1; i++)
     {
-        if( fabs(FirstParameter->Points[i].Y - SecondParameter->Points[i].Y) > Measure )
+        if( fabs(FirstParameter->Points[i].Y - SecondParameter->Points[i].Y) > Parameters.Measure )
         {
             if(!isInsideFailedInterval)
             {
@@ -906,6 +910,32 @@ int TCommonEvaluation <TypeOfX, TypeOfY>::GetWarning(AnsiString &Message)
         return ReturnValue;
     }
     else ReturnValue;
+}
+//---------------------------------------------------------------------------
+template <class TypeOfX, class TypeOfY>
+TPointTMI* TCommonEvaluation <TypeOfX, TypeOfY>::GetModelAsArrayOfPoints(long &PointsCounter)
+{
+    if(!POSModel)
+        return NULL;
+
+    TPointTMI *RetVal = new TPointTMI [POSModel->CountPoint];
+    TPointTMI_Old <TypeOfX, TypeOfY> *TMP = new TPointTMI_Old <TypeOfX, TypeOfY>;
+    TMP = POSModel->GetMasPointTMI();
+    for(int i = 0; i < POSModel->CountPoint; i++)
+        RetVal[i] = TMP[i].Convert();
+
+    PointsCounter = POSModel->CountPoint;
+    delete TMP;
+    return RetVal;
+}
+//---------------------------------------------------------------------------
+template <class TypeOfX, class TypeOfY>
+void TCommonEvaluation <TypeOfX, TypeOfY>::SaveModelToFile(AnsiString FileName)
+{
+    if(POSModel)
+        SaveToFile(*POSModel,  FileName+"_model.d2");
+    else
+        return;
 }
 //---------------------------------------------------------------------------
 #endif

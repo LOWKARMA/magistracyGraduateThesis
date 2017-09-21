@@ -2,7 +2,7 @@
 
 #include <vcl.h>
 #pragma hdrstop
-#include "ClassTCommonEvaluation.h"
+#include <ClassTCommonEvaluation.h>
 #include "uPOSAnalysisDLLParametersEditorForm.h"
 #include <io.h>
 

@@ -22,10 +22,12 @@ void TStepMotorCharacteristicsEditorForm::SetStatusbarText(AnsiString Message)
 //---------------------------------------------------------------------------
 void TStepMotorCharacteristicsEditorForm::LoadForm(AnsiString SelectedFileName)
 {
+    /*
     Height = 231;
     ClientHeight = 204;
     Width = 324;
     ClientWidth = 316;
+    */
     FileName = SelectedFileName;
     StringGrid->Cells[0][0] = "Дельта напряжения за шаг";
     StringGrid->Cells[0][1] = "Max значение люфта";
@@ -43,7 +45,6 @@ void __fastcall TStepMotorCharacteristicsEditorForm::FormClose(
     Action = caFree;
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TStepMotorCharacteristicsEditorForm::Button_SaveClick(
       TObject *Sender)
 {
@@ -103,6 +104,12 @@ void __fastcall TStepMotorCharacteristicsEditorForm::Button_SaveClick(
         StepMotorCharacteristics.SaveToIniFile(FileName);
         SetStatusbarText("Готово!");
     }
+}
+//---------------------------------------------------------------------------
+void __fastcall TStepMotorCharacteristicsEditorForm::Button_CancelClick(
+      TObject *Sender)
+{
+    Close();
 }
 //---------------------------------------------------------------------------
 

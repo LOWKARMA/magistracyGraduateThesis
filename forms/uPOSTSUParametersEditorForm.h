@@ -21,11 +21,14 @@ __published:	// IDE-managed Components
     TButton *Button_Save;
     TButton *Button_Cancel;
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+    void __fastcall Button_CancelClick(TObject *Sender);
+    void __fastcall Button_SaveClick(TObject *Sender);
 private:	// User declarations
     AnsiString FileName;
 public:		// User declarations
     __fastcall TTSUparametersEditorForm(TComponent* Owner);
-    void LoadForm(AnsiString );
+    void LoadForm(AnsiString);
+    void SetStatusbarText(AnsiString Message);    
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TTSUparametersEditorForm *TSUparametersEditorForm;

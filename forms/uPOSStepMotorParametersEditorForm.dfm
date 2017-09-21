@@ -1,11 +1,11 @@
 object StepMotorCharacteristicsEditorForm: TStepMotorCharacteristicsEditorForm
-  Left = 1423
-  Top = 201
+  Left = 1505
+  Top = 467
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'StepMotorCharacteristicsEditorForm'
+  Caption = #1061#1072#1088#1072#1082#1090#1077#1088#1080#1089#1090#1080#1082#1080' '#1096#1072#1075#1086#1074#1086#1075#1086' '#1087#1088#1080#1074#1086#1076#1072
   ClientHeight = 206
-  ClientWidth = 316
+  ClientWidth = 324
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -62,7 +62,7 @@ object StepMotorCharacteristicsEditorForm: TStepMotorCharacteristicsEditorForm
     Top = 152
     Width = 75
     Height = 25
-    Caption = 'Save'
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
     TabOrder = 2
     OnClick = Button_SaveClick
   end
@@ -71,13 +71,14 @@ object StepMotorCharacteristicsEditorForm: TStepMotorCharacteristicsEditorForm
     Top = 152
     Width = 75
     Height = 25
-    Caption = 'Cancel'
+    Caption = #1054#1090#1084#1077#1085#1072
     TabOrder = 3
+    OnClick = Button_CancelClick
   end
   object StatusBar: TStatusBar
     Left = 0
     Top = 187
-    Width = 316
+    Width = 324
     Height = 19
     Panels = <
       item

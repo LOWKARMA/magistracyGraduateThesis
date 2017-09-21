@@ -28,8 +28,6 @@ __published:	// IDE-managed Components
 private:	// User declarations
     AnsiString FileName;
     void SetStatusbarText(AnsiString Message);
-    bool TryToFloat(AnsiString &Number, double &Variable);
-    bool TryToInt(AnsiString &Number,  int &Variable);
 public:		// User declarations
     __fastcall TModellingParametersEditorForm(TComponent* Owner);
     void LoadForm(AnsiString);

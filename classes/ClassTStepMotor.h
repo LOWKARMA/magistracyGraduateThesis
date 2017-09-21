@@ -19,18 +19,20 @@ struct TIntervalCharacteristics
 //---------------------------------------------------------------------------
 struct TControlImpulse
 {
-    float Level_12Min;
-    float Level_12Max;
-    float Level_23Min;
-    float Level_23Max;
-    float Level_34Min;
-    float Level_34Max;
-    float Level_41Min;
-    float Level_41Max;
-    float Level_0Min;
-    float Level_0Max;
+    double Level_12Min;
+    double Level_12Max;
+    double Level_23Min;
+    double Level_23Max;
+    double Level_34Min;
+    double Level_34Max;
+    double Level_41Min;
+    double Level_41Max;
+    double Level_0Min;
+    double Level_0Max;
     bool LoadFormIniFile(AnsiString IniFileName);
+    void SaveToIniFile(AnsiString OutputFileName);
     TControlImpulse();
+    TControlImpulse(double, double, double, double, double, double, double, double, double, double);
     TControlImpulse(AnsiString InputFileName);
 };
 //---------------------------------------------------------------------------
@@ -227,7 +229,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
                                                                             unsigned int QuantumLineIntervals, char RoundingMethod,
                                                                             TIntervalCharacteristics* LongestIntervalWithoutControlImpulses)
 {
-    AnsiString FName = "D:\\2134241";
+    AnsiString FName = "e:\\2134241";
 
     if(PointFrequency == 0)
     {
@@ -282,7 +284,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
     int LvlSwitch = 1;
 
     //Сохранение промежуточных результатов
-    SaveToFile(ControlImpulse,FName+"_1.d2");
+    SaveToFile(ControlImpulse,FName+"_1_stupenka.d2");
 
     //счетчик переключения уровней
     for(unsigned int i = 1; i < ControlImpulse.CountPoint; i++)
@@ -317,7 +319,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
 
 
     //Сохранение промежуточных результатов
-    SaveToFile(CuttedContImp, FName+"_2.d2");
+    SaveToFile(CuttedContImp, FName+"_2_pila.d2");
 
     for(unsigned int i = 0; i < CuttedContImp.CountPoint; i++)
     {
@@ -373,7 +375,7 @@ TParameterTMI_Old <TypeOfX, TypeOfY>* TStepMotor<TypeOfX, TypeOfY>::GetPOS( Type
     }
 
     //Сохранение промежуточных результатов
-    //SaveToFile(CuttedContImp,FName+"_3.d2");
+    SaveToFile(CuttedContImp,FName+"_3_cheredovanie.d2");
 
     //Если чередование нарушено, то выводим пользователю точки с ошибочным чередованием
     if(BrokenPointsCounter != 1)
@@ -606,6 +608,24 @@ bool TControlImpulse::LoadFormIniFile(AnsiString IniFileName)
     return true;
 }
 //---------------------------------------------------------------------------
+void TControlImpulse::SaveToIniFile(AnsiString OutputFileName)
+{
+    TIniFile *IniFile = new TIniFile(OutputFileName);
+    
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_12Min", Level_12Min);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_12Max", Level_12Max);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_23Min", Level_23Min);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_23Max", Level_23Max);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_34Min", Level_34Min);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_34Max", Level_34Max);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_41Min", Level_41Min);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_41Max", Level_41Max);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_0Min", Level_0Min);
+    IniFile->WriteFloat("ControlImpulsesLevels", "Level_0Max", Level_0Max);
+
+    delete IniFile;
+}
+//---------------------------------------------------------------------------
 TControlImpulse::TControlImpulse(AnsiString InputFileName)
 {
     if(InputFileName.IsEmpty())
@@ -640,6 +660,24 @@ TControlImpulse::TControlImpulse(AnsiString InputFileName)
     return;
 }
 //---------------------------------------------------------------------------
+TControlImpulse::TControlImpulse(double Level_0Min, double Level_0Max,
+                double Level_12Min, double Level_12Max,
+                double Level_23Min, double Level_23Max,
+                double Level_34Min, double Level_34Max,
+                double Level_41Min, double Level_41Max)
+{
+    this->Level_0Min = Level_0Min;
+    this->Level_0Max = Level_0Max;
+    this->Level_12Min = Level_12Min;
+    this->Level_12Max = Level_12Max;
+    this->Level_23Min = Level_23Min;
+    this->Level_23Max = Level_23Max;
+    this->Level_34Min = Level_34Min;
+    this->Level_34Max = Level_34Max;
+    this->Level_41Min = Level_41Min;
+    this->Level_41Max = Level_41Max;
+}
+//---------------------------------------------------------------------------
 TControlImpulse::TControlImpulse()
 {
     Level_12Min = 0;
@@ -652,7 +690,7 @@ TControlImpulse::TControlImpulse()
     Level_41Max = 0;
     Level_0Min = 0;
     Level_0Max = 0;
-    return;
 }
+//---------------------------------------------------------------------------
 #endif
 

@@ -22,6 +22,7 @@ __published:	// IDE-managed Components
     TStatusBar *StatusBar;
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
     void __fastcall Button_SaveClick(TObject *Sender);
+    void __fastcall Button_CancelClick(TObject *Sender);
 private:	// User declarations
     AnsiString FileName;
     void SetStatusbarText(AnsiString Message);
